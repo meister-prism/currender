@@ -19,11 +19,6 @@ export const WebSocketReducer: Reducer<IWebSocketState, WebSocketAction> = (
             console.log('WebSocket Close');
             return { connected: false };
         }
-        // あとで消す
-        case WebSocketType.CONNECT: {
-            console.log('WebSocket connected');
-            return state;
-        }
         // 残り2つのActionはMiddleware側で拾っているのでこっちで何かすることはない。
         // 接続後・送信後それぞれ何か実装したい場合に記述する。
         default:

@@ -1,7 +1,7 @@
 import { Reducer, combineReducers } from 'redux';
 import { IWebSocketState, WebSocketReducer } from './WebSocketReducer';
 
-interface RootState {
+export interface RootState {
     WebSocketState: IWebSocketState,
 }
 
