@@ -1,3 +1,4 @@
+// 書き終わり
 import { Action } from 'redux';
 
 enum WebsocketType {

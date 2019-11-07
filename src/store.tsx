@@ -1,15 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { hogeReducer, HogeState } from './reducers/hogeState';
-import { middleware } from './middleware';
+// 書き終わり
+import { createStore, applyMiddleware, Store } from 'redux';
+import { middleware } from './webSocket';
+import { reducers } from './reducers';
 
-export type AppState = {
-    hoge: HogeState,
-};
-
-const store = createStore(
-    combineReducers<AppState>({
-        hoge: hogeReducer,
-    }),
+const store: Store = createStore(
+    reducers,
     applyMiddleware(middleware),
 );
 
