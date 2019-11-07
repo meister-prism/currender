@@ -40,7 +40,7 @@ export const Middleware = ({ dispatch }: { dispatch: any }) => (next: any) => (a
 
             websocket.onopen = () => dispatch(webSocketActionCreator.open());
             websocket.onclose = (event) => dispatch(webSocketActionCreator.close(event));
-            // onMessageは各redcerを呼ぶ必要があるので，actionCreatorをdispatchしない
+            // onMessageは各reducerを呼ぶ必要があるので，actionCreatorをdispatchしない
             websocket.onmessage = (event) => dispatch({ type: 'WEBSOCKET:MESSAGE', payload: event });
 
             break;
