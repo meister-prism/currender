@@ -3,14 +3,11 @@ import { hogeActions } from '../actions/hogeActions';
 
 export interface HogeState {
     name: string;
-    email: string;
 }
 
 const initialState: HogeState = {
     name: '',
-    email: '',
 };
 
 export const hogeReducer = reducerWithInitialState(initialState)
-    .case(hogeActions.updateName, (state: HogeState, name) => ({ ...state, name }))
-    .case(hogeActions.updateEmail, (state: HogeState, email) => ({ ...state, email }));
+    .case(hogeActions.update, (state: HogeState, name) => ({ ...state, name }));

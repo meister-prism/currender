@@ -1,16 +1,16 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import { hogeReducer, HogeState } from './reducers/hogeState';
+import { middleware } from './middleware';
 
 export type AppState = {
-    hoge: HogeState
+    hoge: HogeState,
 };
 
 const store = createStore(
     combineReducers<AppState>({
         hoge: hogeReducer,
     }),
-    applyMiddleware(thunkMiddleware),
+    applyMiddleware(middleware),
 );
 
 export default store;
