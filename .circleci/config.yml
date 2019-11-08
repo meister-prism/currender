@@ -25,6 +25,6 @@ jobs:
           name: lint
           command: |
             mkdir -p /tmp/test-reports/eslint
-            node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml --ext .js,.jsx,.ts,.tsx
+            node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml --ext .js,.jsx,.ts,.tsx --rule 'no-unused-vars: 0' --rule 'no-console: 0'
       - store_test_results:
           path: /tmp/test-reports
