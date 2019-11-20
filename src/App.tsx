@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
+import Watch from './containers/sample/Watch';
 
 interface IStateToProps {
     connected: boolean;
@@ -22,7 +23,12 @@ class App extends React.Component<IProps, {}> {
 
     render() {
         const { connected } = this.props;
-        return <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>;
+        return (
+            <div>
+                <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>
+                <Watch />
+            </div>
+        );
     }
 }
 
