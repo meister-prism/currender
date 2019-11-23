@@ -17,7 +17,7 @@ const Root = styled.div`
     text-align: center
 `;
 
-export default function Watch(props: Props): JSX.Element {
+export function Watch(props: Props): JSX.Element {
     const { Date, Time } = props;
     return (
         <Root>

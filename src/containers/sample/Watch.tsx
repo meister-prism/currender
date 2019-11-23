@@ -3,7 +3,7 @@ import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../reducers';
 import { currentActionCreator } from '../../actions/CurrentAction';
-import WatchComponent from '../../components/sample/Watch';
+import { Watch as WatchComponent } from '../../components/sample/Watch';
 
 
 interface IStateToProps {
