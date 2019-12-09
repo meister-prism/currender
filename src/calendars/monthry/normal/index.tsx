@@ -4,14 +4,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { Day } from './Day';
+
 const Image = styled.div`
-    height: 50%
+    height: 840px
     width: 100%
     background-color: #f4a460
 `;
 
 const Calendar = styled.div`
-    height: 50%
+    height: 1080px
     width: 100%
     background-color: 00ff7f
 `;
@@ -21,7 +23,9 @@ class Otaku extends React.Component<{}, {}> {
         return (
             <div>
                 <Image />
-                <Calendar />
+                <Calendar>
+                    <Day />
+                </Calendar>
             </div>
         );
     }
