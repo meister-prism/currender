@@ -18,14 +18,34 @@ const Calendar = styled.div`
     background-color: 00ff7f
 `;
 
-class Otaku extends React.Component<{}, {}> {
+interface State {
+    name: string
+}
+
+class Otaku extends React.Component<{}, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            name: 'aaaaaa',
+        };
+    }
+
+    change(item: string) {
+        this.setState({
+            name: item,
+        });
+    }
+
     render() {
+        const test = [1, 2, 3, 4, 5];
+        const { name } = this.state;
         return (
             <div>
-                <Image />
-                <Calendar>
-                    <Day />
-                </Calendar>
+                <textarea
+                    onChange={(e) => this.change(e.target.value)}
+                />
+                {test.map((item) => <Day item={item.toString()} />)}
+                <p>{name}</p>
             </div>
         );
     }
