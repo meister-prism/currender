@@ -5,6 +5,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { Day } from './Day';
+import { Monthly } from './Monthly';
 
 const Image = styled.div`
     height: 840px
@@ -41,11 +42,7 @@ class Otaku extends React.Component<{}, State> {
         const { name } = this.state;
         return (
             <div>
-                <textarea
-                    onChange={(e) => this.change(e.target.value)}
-                />
-                {test.map((item) => <Day item={item.toString()} />)}
-                <p>{name}</p>
+                <Monthly />
             </div>
         );
     }
