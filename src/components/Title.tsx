@@ -39,6 +39,36 @@ const TitleText = styled.h1`
     margin: 0
 `;
 
+const NewsBox = styled.span`
+    width: 100%
+    border-radius: 3px
+    border: 1px solid grey
+    display: block
+    margin: 0 0 1em
+    padding: 0 5px
+`;
+
+const Temp = styled.span`
+    font-size: 30px
+    padding: 5px 0
+`;
+
+const HighTemp = styled.span`
+    color: red
+    padding: 0 0.5em
+`;
+
+const RowTemp = styled.span`
+    color: blue
+    padding: 0 0.5em
+`;
+
+const News = styled.span`
+    width: 40%
+    display: block
+    margin: 2em 1em
+    float: right
+`;
 
 
 export function Title(props: Props): JSX.Element {
@@ -50,6 +80,19 @@ export function Title(props: Props): JSX.Element {
                 <TitleText>{Month}</TitleText>
                 <h2>{MonthName}</h2>
             </TitleBox>
+            <News>
+                <img src={String(logo)} alt='weather' style={{ width: '70px' }}/>
+                <Temp>                    
+                    <HighTemp>20</HighTemp>/<RowTemp>15</RowTemp>℃
+                </Temp>
+                <p>今日はCO2の日です．息を吸いましょう．</p>
+                <NewsBox>
+                    <p>遅延情報</p>
+                </NewsBox>
+                <NewsBox>
+                    <p>ニュース</p>
+                </NewsBox>
+            </News>
         </Root>
     );
 }
