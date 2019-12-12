@@ -18,6 +18,10 @@ interface IState {
 }
 
 class Title extends React.Component<IProps, {}> {
+    componentDidMount() {
+        const a = 1;
+    }
+
     render() {
         const { Date } = this.props;
         const Moment: moment.Moment = moment(Date);
