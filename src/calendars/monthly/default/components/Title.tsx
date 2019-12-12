@@ -11,28 +11,13 @@ interface IStateToProps {
     Date: string,
 }
 
-interface IDispatchToProps {
-    updateDatetime: () => void;
-}
-
-type IProps = IStateToProps & IDispatchToProps;
+type IProps = IStateToProps;
 
 interface IState {
     timerId: number
 }
 
-class Title extends React.Component<IProps, IState> {
-    componentDidMount() {
-        const { updateDatetime } = this.props;
-        const timerId = setInterval(updateDatetime, 1000);
-        this.setState({ timerId });
-    }
-
-    componentWillUnmount() {
-        const { timerId } = this.state;
-        clearInterval(timerId);
-    }
-
+class Title extends React.Component<IProps, {}> {
     render() {
         const { Date } = this.props;
         const Moment: moment.Moment = moment(Date);
@@ -52,11 +37,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): IDispatchToProps => ({
-    updateDatetime: () => dispatch(currentActionCreator.updateNowDate()),
-});
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
 )(Title);
