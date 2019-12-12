@@ -1,4 +1,5 @@
 import * as React from 'react';
+import moment from 'moment';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../reducers';
@@ -7,8 +8,7 @@ import { Title as TitleComponent } from '../containers/Title';
 
 
 interface IStateToProps {
-    Month: string,
-    MonthName: string,
+    Date: string,
 }
 
 interface IDispatchToProps {
@@ -34,11 +34,12 @@ class Title extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { Month, MonthName } = this.props;
+        const { Date } = this.props;
+        const Moment: moment.Moment = moment(Date);
         return (
             <TitleComponent
-                Month={Month}
-                MonthName={MonthName}
+                Month={Moment.format('M')}
+                MonthName={Moment.format('MMMM')}
             />
         );
     }
@@ -47,8 +48,7 @@ class Title extends React.Component<IProps, IState> {
 const mapStateToProps = (state: RootState): IStateToProps => {
     const { CurrentState } = state;
     return {
-        Month: CurrentState.nowMonth,
-        MonthName: CurrentState.nowMonthName,
+        Date: CurrentState.nowDate,
     };
 };
 
