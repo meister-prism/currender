@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../assets/sun.png';
-import titleImage from '../assets/title.png';
 
 interface Props {
     Month: string,
