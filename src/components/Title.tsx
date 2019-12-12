@@ -1,10 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../assets/sun.png';
+import titleImage from '../assets/title.png';
 
 interface Props {
-    Date: string,
-    Time: string,
     Month: string,
     MonthName: string,
 }
@@ -24,7 +23,6 @@ const Bar = styled.div`
 const Root = styled.div`
     width: 100%
     margin: 0 auto
-    background-color: #f3f3f3
     text-align: left
 `;
 
@@ -72,7 +70,7 @@ const News = styled.span`
 
 
 export function Title(props: Props): JSX.Element {
-    const { Date, Time, Month, MonthName } = props;
+    const { Month, MonthName } = props;
     return (
         <Root>
             <Bar/>
@@ -81,11 +79,13 @@ export function Title(props: Props): JSX.Element {
                 <h1>{MonthName}</h1>
             </TitleBox>
             <News>
-                <img src={String(logo)} alt='weather' style={{ width: '70px' }}/>
+                <img src={String(logo)} alt='weather' 
+                    style={{ width: '70px' }}/>
                 <Temp>                    
                     <HighTemp>20</HighTemp>/<RowTemp>15</RowTemp>℃
                 </Temp>
                 <p>今日はCO2の日です．息を吸いましょう．</p>
+                
                 <NewsBox>
                     <p>遅延情報</p>
                 </NewsBox>

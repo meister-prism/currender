@@ -7,8 +7,6 @@ import { Title as TitleComponent } from '../components/Title';
 
 
 interface IStateToProps {
-    Date: string,
-    Time: string,
     Month: string,
     MonthName: string,
 }
@@ -36,11 +34,9 @@ class Title extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { Date, Time, Month, MonthName } = this.props;
+        const { Month, MonthName } = this.props;
         return (
             <TitleComponent
-                Date={Date}
-                Time={Time}
                 Month={Month}
                 MonthName={MonthName}
             />
@@ -51,8 +47,6 @@ class Title extends React.Component<IProps, IState> {
 const mapStateToProps = (state: RootState): IStateToProps => {
     const { CurrentState } = state;
     return {
-        Date: CurrentState.nowDate,
-        Time: CurrentState.nowTime,
         Month: CurrentState.nowMonth,
         MonthName: CurrentState.nowMonthName,
     };
