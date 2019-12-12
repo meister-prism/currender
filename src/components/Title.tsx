@@ -72,19 +72,20 @@ export function Title(props: Props): JSX.Element {
     const { Month, MonthName } = props;
     return (
         <Root>
-            <Bar/>
+            <Bar />
             <TitleBox>
                 <TitleText>{Month}</TitleText>
                 <h1>{MonthName}</h1>
             </TitleBox>
             <News>
-                <img src={String(logo)} alt='weather' 
-                    style={{ width: '70px' }}/>
-                <Temp>                    
-                    <HighTemp>20</HighTemp>/<RowTemp>15</RowTemp>℃
+                <img src={String(logo)} alt="weather" style={{ width: '70px' }} />
+                <Temp>
+                    <HighTemp>20</HighTemp>
+                    /
+                    <RowTemp>15</RowTemp>
+                    ℃
                 </Temp>
                 <p>今日はCO2の日です．息を吸いましょう．</p>
-                
                 <NewsBox>
                     <p>遅延情報</p>
                 </NewsBox>
