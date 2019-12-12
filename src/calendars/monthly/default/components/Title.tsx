@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
-import { RootState } from '../reducers';
-import { currentActionCreator } from '../actions/CurrentAction';
-import { Title as TitleComponent } from '../components/Title';
+import { RootState } from '../../../../reducers';
+import { currentActionCreator } from '../../../../actions/CurrentAction';
+import { Title as TitleComponent } from '../containers/Title';
 
 
 interface IStateToProps {
