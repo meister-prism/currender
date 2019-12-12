@@ -78,7 +78,7 @@ export function Title(props: Props): JSX.Element {
             <Bar/>
             <TitleBox>
                 <TitleText>{Month}</TitleText>
-                <h2>{MonthName}</h2>
+                <h1>{MonthName}</h1>
             </TitleBox>
             <News>
                 <img src={String(logo)} alt='weather' style={{ width: '70px' }}/>
