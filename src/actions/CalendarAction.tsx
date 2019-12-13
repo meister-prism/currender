@@ -1,16 +1,11 @@
 import { Action } from 'redux';
+import { CalendarEvent } from '../reducers/CalendarReducer';
 
 export enum CalendarType {
     CREATE_EVENT = 'CREATE',
 }
 
-export interface CalendarEvent {
-    // shoから送られてくるデータ形式かな
-    title: string,
-    description: string,
-    startSchedule: string,
-}
-
+// これshoから受け取る方だからArray<CalendarEvent> の方が良さそうだな
 interface ICalendarCreateAction extends Action {
     type: CalendarType.CREATE_EVENT;
     payload: { event: CalendarEvent }

@@ -45,10 +45,10 @@ class Watch extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
-    const { CurrentState } = state;
+    const { CurrentState: { nowDateTime } } = state;
     return {
-        Date: CurrentState.nowDate,
-        Time: CurrentState.nowTime,
+        Date: nowDateTime.format('YYYY-MM-DD'),
+        Time: nowDateTime.format('hh:mm:ss'),
     };
 };
 
