@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
-import Watch from './containers/sample/Watch';
-import Title from './calendars/monthly/default/containers/Title';
+import { TestHimekuri } from './calendars/himekuri/default/components/test';
 
 interface IStateToProps {
     connected: boolean;
@@ -26,9 +25,7 @@ class App extends React.Component<IProps, {}> {
         const { connected } = this.props;
         return (
             <div>
-                <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>
-                <Watch />
-                <Title />
+                <TestHimekuri title="Test" />
             </div>
         );
     }
