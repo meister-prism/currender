@@ -13,7 +13,7 @@ export function TestHimekuri(props: Props) {
     return (
         <A>
             <p>{`${title}`}</p>
-            <p>{`a`}</p>
+            <p>a</p>
         </A>
     );
 }
