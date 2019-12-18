@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
-import { TestHimekuri } from './calendars/himekuri/default/components/test';
+import { TestHimekuri } from './calendars/himekuri/default/components/himekuri';
 
 interface IStateToProps {
     connected: boolean;
@@ -25,7 +25,7 @@ class App extends React.Component<IProps, {}> {
         const { connected } = this.props;
         return (
             <div>
-                <TestHimekuri title="Test" />
+                <TestHimekuri title="04" />
             </div>
         );
     }
