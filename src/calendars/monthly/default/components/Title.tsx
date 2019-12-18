@@ -1,47 +1,98 @@
 import * as React from 'react';
-import moment from 'moment';
-import { Dispatch, Action } from 'redux';
-import { connect } from 'react-redux';
-import { RootState } from '../../../../reducers';
-import { currentActionCreator } from '../../../../actions/CurrentAction';
-import { Title as TitleComponent } from '../containers/Title';
+import styled from 'styled-components';
+import logo from '../../../../assets/sun.png';
 
-
-interface IStateToProps {
-    Date: string,
+interface Props {
+    Month: string,
+    MonthName: string,
 }
 
-type IProps = IStateToProps;
+/* styled-component の使い方
+    基本タグを選んで（ex: 下はdiv）cssを付け足す
+    function内で変数宣言すると，propsを使ったスタイリングができるけど...？
+*/
 
-interface IState {
-    timerId: number
+const Bar = styled.div`
+    width: 100%
+    height: 20px
+    margin: 0 auto
+    background-color: #000
+`;
+
+const Root = styled.div`
+    width: 100%
+    margin: 0 auto
+    text-align: left
+`;
+
+const TitleBox = styled.span`
+    width: 40%
+    padding: 10px 20px
+    float: left
+`;
+
+const TitleText = styled.h1`
+    font-size: 100px
+    margin: 0
+`;
+
+const NewsBox = styled.span`
+    width: 100%
+    border-radius: 3px
+    border: 1px solid grey
+    display: block
+    margin: 0 0 1em
+    padding: 0 5px
+`;
+
+const Temp = styled.span`
+    font-size: 30px
+    padding: 5px 0
+`;
+
+const HighTemp = styled.span`
+    color: red
+    padding: 0 0.5em
+`;
+
+const RowTemp = styled.span`
+    color: blue
+    padding: 0 0.5em
+`;
+
+const News = styled.span`
+    width: 40%
+    display: block
+    margin: 2em 1em
+    float: right
+`;
+
+
+export function Title(props: Props): JSX.Element {
+    const { Month, MonthName } = props;
+    return (
+        <Root>
+            <Bar />
+            <TitleBox>
+                <TitleText>{Month}</TitleText>
+                <h1>{MonthName}</h1>
+            </TitleBox>
+            <News>
+                <img src={String(logo)} alt="weather" style={{ width: '70px' }} />
+                <Temp>
+                    <HighTemp>20</HighTemp>
+                    /
+                    <RowTemp>15</RowTemp>
+                    ℃
+                </Temp>
+                <p>今日はCO2の日です．息を吸いましょう．</p>
+                <NewsBox>
+                    <p>遅延情報</p>
+                </NewsBox>
+                <NewsBox>
+                    <p>ニュース</p>
+                </NewsBox>
+            </News>
+        </Root>
+    );
 }
-
-class Title extends React.Component<IProps, {}> {
-    componentDidMount() {
-        const a = 1;
-    }
-
-    render() {
-        const { Date } = this.props;
-        const Moment: moment.Moment = moment(Date);
-        return (
-            <TitleComponent
-                Month={Moment.format('M')}
-                MonthName={Moment.format('MMMM')}
-            />
-        );
-    }
-}
-
-const mapStateToProps = (state: RootState): IStateToProps => {
-    const { CurrentState } = state;
-    return {
-        Date: CurrentState.nowDate,
-    };
-};
-
-
-export default connect(
-    mapStateToProps,
-)(Title);
