@@ -6,7 +6,8 @@ export interface ICurrentState {
     nowDateTime: moment.Moment,
     whatIsToday: string,
     weather: IWeather,
-    traffic: Array<ITraffic>
+    traffic: Array<ITraffic>,
+    astrology: Array<IAstrology>,
 }
 
 export interface IWeather {
@@ -24,6 +25,11 @@ export interface ITraffic {
     line: string,
     serviceStatus: string,
     description: string,
+}
+
+export interface IAstrology {
+    constellation: string,
+    message: string,
 }
 
 const initState: ICurrentState = {
@@ -44,6 +50,10 @@ const initState: ICurrentState = {
         serviceStatus: '常に遅延',
         description: '学校行く時いつも遅れてませんか？',
     }],
+    astrology: [{
+        constellation: '座',
+        message: 'hogehoge',
+    }],
 };
 
 export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
@@ -62,6 +72,22 @@ export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
             return {
                 ...state,
                 whatIsToday: action.payload,
+            };
+        }
+        /* ここから下未実装 */
+        case CurrentType.UPDATE_WEATHER: {
+            return {
+                ...state,
+            };
+        }
+        case CurrentType.UPDATE_TRAFFIC: {
+            return {
+                ...state,
+            };
+        }
+        case CurrentType.UPDATE_ASTROLOGY: {
+            return {
+                ...state,
             };
         }
         default: {
