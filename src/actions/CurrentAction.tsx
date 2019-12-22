@@ -1,10 +1,11 @@
 import { Action } from 'redux';
-import { IWeather } from '../reducers/CurrentReducer';
+import { IWeather, ITraffic } from '../reducers/CurrentReducer';
 
 export enum CurrentType {
     UPDATE_DATETIME = 'UPDATE_DATETIME',
     UPDATE_WHATISTODAY = 'UPDATE_WHATISTODAY',
     UPDATE_WEATHER = 'UPDATE_WEATHER',
+    UPDATE_TRAFFIC = 'UPDATE_TRAFFIC',
 }
 
 interface ICurrentDateTimeAction extends Action {
@@ -21,11 +22,18 @@ interface ICurrentWeatherAction extends Action {
     payload: IWeather,
 }
 
+interface ICurrentTrafficAction extends Action {
+    type: CurrentType.UPDATE_TRAFFIC,
+    payload: Array<ITraffic>,
+}
+
 export type CurrentAction = ICurrentDateTimeAction | ICurrentWITAction;
 
 interface ICurrentActionCreator {
     updateNowDate(): ICurrentDateTimeAction,
     updateWhatIsToday(value: string): ICurrentWITAction,
+    updateWeather(value: IWeather): ICurrentWeatherAction,
+    updateTraffic(value: Array<ITraffic>): ICurrentTrafficAction,
 }
 
 
@@ -41,6 +49,11 @@ class CurrentActionCreator implements ICurrentActionCreator {
 
     public updateWeather = (value: IWeather): ICurrentWeatherAction => ({
         type: CurrentType.UPDATE_WEATHER,
+        payload: value,
+    });
+
+    public updateTraffic = (value: Array<ITraffic>): ICurrentTrafficAction => ({
+        type: CurrentType.UPDATE_TRAFFIC,
         payload: value,
     })
 }

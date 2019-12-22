@@ -6,6 +6,7 @@ export interface ICurrentState {
     nowDateTime: moment.Moment,
     whatIsToday: string,
     weather: IWeather,
+    traffic: Array<ITraffic>
 }
 
 export interface IWeather {
@@ -17,6 +18,12 @@ export interface IWeather {
         min: number,
     },
     rainfallProbability: number,
+}
+
+export interface ITraffic {
+    line: string,
+    serviceStatus: string,
+    description: string,
 }
 
 const initState: ICurrentState = {
@@ -32,6 +39,11 @@ const initState: ICurrentState = {
         },
         rainfallProbability: 0.5,
     },
+    traffic: [{
+        line: '中央線',
+        serviceStatus: '常に遅延',
+        description: '学校行く時いつも遅れてませんか？',
+    }],
 };
 
 export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
