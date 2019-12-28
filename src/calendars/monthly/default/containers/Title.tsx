@@ -6,7 +6,7 @@ import { Title as TitleComponent } from '../components/Title';
 
 
 interface IStateToProps {
-    Date: string,
+    Date: moment.Moment,
 }
 
 type IProps = IStateToProps;
@@ -18,11 +18,10 @@ class Title extends React.Component<IProps, {}> {
 
     render() {
         const { Date } = this.props;
-        const Moment: moment.Moment = moment(Date);
         return (
             <TitleComponent
-                Month={Moment.format('M')}
-                MonthName={Moment.format('MMMM')}
+                Month={Date.format('M')}
+                MonthName={Date.format('MMMM')}
             />
         );
     }
@@ -31,7 +30,7 @@ class Title extends React.Component<IProps, {}> {
 const mapStateToProps = (state: RootState): IStateToProps => {
     const { CurrentState } = state;
     return {
-        Date: CurrentState.nowDate,
+        Date: CurrentState.nowDateTime,
     };
 };
 
