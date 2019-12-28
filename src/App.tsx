@@ -5,6 +5,7 @@ import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
+import Content from './calendars/monthly/default/containers/Content';
 
 interface IStateToProps {
     connected: boolean;
@@ -28,7 +29,7 @@ class App extends React.Component<IProps, {}> {
             <div>
                 <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>
                 <Watch />
-                <Title />
+                <Content />
             </div>
         );
     }
