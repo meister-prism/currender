@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../reducers';
-import { currentActionCreator } from '../../actions/CurrentAction';
 import { Watch as WatchComponent } from '../../components/sample/Watch';
 
 
@@ -11,27 +9,16 @@ interface IStateToProps {
     Time: string,
 }
 
-interface IDispatchToProps {
-    updateDatetime: () => void;
-}
-
-type IProps = IStateToProps & IDispatchToProps;
+type IProps = IStateToProps;
 
 interface IState {
     timerId: number
 }
 
 class Watch extends React.Component<IProps, IState> {
-    componentDidMount() {
-        const { updateDatetime } = this.props;
-        updateDatetime();
-        const timerId = setInterval(updateDatetime, 1000);
-        this.setState({ timerId });
-    }
-
-    componentWillUnmount() {
-        const { timerId } = this.state;
-        clearInterval(timerId);
+    constructor(props: IProps) {
+        super(props);
+        const a = 1;
     }
 
     render() {
@@ -53,11 +40,6 @@ const mapStateToProps = (state: RootState): IStateToProps => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): IDispatchToProps => ({
-    updateDatetime: () => dispatch(currentActionCreator.updateNowDate()),
-});
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
 )(Watch);
