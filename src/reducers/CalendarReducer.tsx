@@ -15,41 +15,36 @@ interface Schedule {
 }
 
 export interface ICalendarState {
-    schedules: Array<Schedule>
+    schedules: { [key: string]: Array<CalendarEvent> }
 }
 
 const initState: ICalendarState = {
-    schedules: [
-        {
-            date: '2019-12-12',
-            events: [
-                {
-                    title: 'testTitle',
-                    description: 'by sun-yryr',
-                    startSchedule: moment('2019-12-12'),
-                    endSchedule: moment('2019-12-12'),
-                    calendarName: 'Taiyo Minagawa',
-                },
-            ],
-        }, {
-            date: '2019-12-14',
-            events: [
-                {
-                    title: 'testTitle2',
-                    description: 'by sun-yryr',
-                    startSchedule: moment('2019-12-14'),
-                    endSchedule: moment('2019-12-14'),
-                    calendarName: 'Taiyo Minagawa',
-                }, {
-                    title: 'testTitle3',
-                    description: 'by sun-yryr',
-                    startSchedule: moment('2019-12-14'),
-                    endSchedule: moment('2019-12-14'),
-                    calendarName: 'Taiyo Minagawa',
-                },
-            ],
-        },
-    ],
+    schedules: {
+        '2019-12-12': [
+            {
+                title: 'testTitle',
+                description: 'by sun-yryr',
+                startSchedule: moment('2019-12-12'),
+                endSchedule: moment('2019-12-12'),
+                calendarName: 'Taiyo Minagawa',
+            },
+        ],
+        '2019-12-14': [
+            {
+                title: 'testTitle2',
+                description: 'by sun-yryr',
+                startSchedule: moment('2019-12-14'),
+                endSchedule: moment('2019-12-14'),
+                calendarName: 'Taiyo Minagawa',
+            }, {
+                title: 'testTitle3',
+                description: 'by sun-yryr',
+                startSchedule: moment('2019-12-14'),
+                endSchedule: moment('2019-12-14'),
+                calendarName: 'Taiyo Minagawa',
+            },
+        ],
+    },
 };
 
 export const CalendarReducer: Reducer<ICalendarState, CalendarAction> = (
