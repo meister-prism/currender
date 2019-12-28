@@ -58,21 +58,28 @@ class Content extends React.Component<IStateToProps, {}> {
         this.click = this.click.bind(this);
     }
 
-    componentDidUpdate() {
-        const { nowMonth, nowYear } = this.props;
-        const strMonth = `0${nowMonth}`.slice(-2);
-        const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
-        generateDayList(tmpMoment);
-    }
-
     click() {
         const { nowMonth } = this.props;
         console.log(`click ${nowMonth}`);
     }
 
     render() {
-        const { nowMonth } = this.props;
-        return <p>{nowMonth}</p>;
+        const { nowMonth, nowYear, Calendar } = this.props;
+        const strMonth = `0${nowMonth}`.slice(-2);
+        const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
+        const DayList = generateDayList(tmpMoment);
+        const calendarData = DayList.map((value) => {
+            const schedules = Calendar[value] === undefined ? Calendar[value] : [];
+            return {
+                date: value,
+                schedules,
+            };
+        });
+        return (
+            <div>
+                {calendarData.map((value) => <p key={value.date}>{value.date}</p>)}
+            </div>
+        );
     }
 }
 

@@ -24,6 +24,7 @@ interface IState {
 class Watch extends React.Component<IProps, IState> {
     componentDidMount() {
         const { updateDatetime } = this.props;
+        updateDatetime();
         const timerId = setInterval(updateDatetime, 1000);
         this.setState({ timerId });
     }
