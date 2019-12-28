@@ -9,10 +9,6 @@ export interface CalendarEvent {
     endSchedule: moment.Moment,
     calendarName: string,
 }
-interface Schedule {
-    date: string,
-    events: Array<CalendarEvent>,
-}
 
 export interface ICalendarState {
     schedules: { [key: string]: Array<CalendarEvent> }
