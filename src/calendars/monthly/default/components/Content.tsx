@@ -14,12 +14,11 @@ interface Props {
 export function Content(props: Props): JSX.Element {
     const { calendar } = props;
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const rows = calendar.length > 35 ? 6 : 5;
     return (
         <Root>
-            <GridDay>
+            <Grid rows={rows}>
                 {days.map((value) => <DayText>{value}</DayText>)}
-            </GridDay>
-            <Grid>
                 {calendar.map((value, index) => {
                     // 左右のときに横罫線が消えているデザインだったので
                     let p = (index % 7 === 0) ? 'left' : undefined;
@@ -37,25 +36,20 @@ export function Content(props: Props): JSX.Element {
 
 const Root = styled.div`
     width: 97%;
-    // height: 50%;
+    height: 100%;
     margin: auto;
 `;
 
-const Grid = styled.div`
+const Grid = styled.div<{rows: number}>`
     display: grid;
     width: 100%;
+    height: calc(100% - 40px);
     grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 200px;
+    grid-template-rows: ${({ rows }) => `40px repeat(${rows}, 1fr)`};
     border-bottom: 1px solid gray;
 `;
 
-const GridDay = styled(Grid)`
-    grid-auto-rows: 75px;
-    border-bottom: 1px solid gray;
-`;
-
-
-const GridItem = styled.div<{position?: string }>`
+const GridItem = styled.div<{position?: string}>`
     border-style: solid;
     border-color: #a9a9a9 #d3d3d3;
     border-width: 1px;
@@ -69,4 +63,5 @@ const DayText = styled.p`
     font-weight: bold;
     font-size: xx-large;
     text-align: center;
+    margin: 0px;
 `;

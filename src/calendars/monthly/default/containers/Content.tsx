@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { findDOMNode } from 'react-dom';
 import { RootState } from '../../../../reducers';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
 import { Content as ContentComponent } from '../components/Content';
@@ -56,8 +57,9 @@ const generateDayList = (now: moment.Moment): Array<string> => {
     return DayList;
 };
 
+type IState = {boundingBoxY: number};
 
-class Content extends React.Component<IStateToProps, {}> {
+class Content extends React.Component<IStateToProps, IState> {
     constructor(props: IStateToProps) {
         super(props);
         this.click = this.click.bind(this);
@@ -81,7 +83,9 @@ class Content extends React.Component<IStateToProps, {}> {
             };
         });
         return (
-            <ContentComponent calendar={calendarData} />
+            <ContentComponent
+                calendar={calendarData}
+            />
         );
     }
 }
