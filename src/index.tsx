@@ -9,7 +9,7 @@ import store from './Store';
 const BackGround = styled.div`
     width: 1080px
     height: 1920px
-    background-color: #87ceeb
+    background-color: #f0f0f0
     position: fixed
     overflow: hidden
     top: 0

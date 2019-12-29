@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { RootState } from '../../../../reducers';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { Content as ContentComponent } from '../components/Content';
 
 interface calendarTmp {
     [key: string]: Array<CalendarEvent>,
@@ -47,7 +48,11 @@ const generateDayList = (now: moment.Moment): Array<string> => {
     // console.log(nextMonth);
 
     // string-keyを結合する
-    const DayList = prevMonth.concat(currentMonth, nextMonth);
+    const DayList = [
+        ...prevMonth,
+        ...currentMonth,
+        ...nextMonth,
+    ];
     return DayList;
 };
 
@@ -76,9 +81,7 @@ class Content extends React.Component<IStateToProps, {}> {
             };
         });
         return (
-            <div>
-                {calendarData.map((value) => <p key={value.date}>{value.date}</p>)}
-            </div>
+            <ContentComponent calendar={calendarData} />
         );
     }
 }
