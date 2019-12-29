@@ -20,19 +20,25 @@ export function Content(props: Props): JSX.Element {
                 {days.map((value) => <DayText>{value}</DayText>)}
             </GridDay>
             <Grid>
-                {calendar.map((value) => (
-                    <Back>
-                        <p>{value.date}</p>
-                    </Back>
-                ))}
+                {calendar.map((value, index) => {
+                    // 左右のときに横罫線が消えているデザインだったので
+                    let p = (index % 7 === 0) ? 'left' : undefined;
+                    p = (index % 7 === 6) ? 'right' : p;
+                    return (
+                        <GridItem position={p}>
+                            <p>{value.date}</p>
+                        </GridItem>
+                    );
+                })}
             </Grid>
         </Root>
     );
 }
 
 const Root = styled.div`
-    width: 100%;
-    height: 50%;
+    width: 97%;
+    // height: 50%;
+    margin: auto;
 `;
 
 const Grid = styled.div`
@@ -40,17 +46,23 @@ const Grid = styled.div`
     width: 100%;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: 200px;
+    border-bottom: 1px solid gray;
 `;
 
 const GridDay = styled(Grid)`
     grid-auto-rows: 75px;
-    border-bottom: 3px solid gray;
+    border-bottom: 1px solid gray;
 `;
 
 
-const Back = styled.div`
-    background-color: #7fff00;
-    margin: 2px;
+const GridItem = styled.div<{position?: string }>`
+    border-style: solid;
+    border-color: #a9a9a9 #d3d3d3;
+    border-width: 1px;
+    // padding: 1px;
+
+    border-left-style: ${({ position }) => (position === 'left' ? 'none' : 'solid')}
+    border-right-style: ${({ position }) => (position === 'right' ? 'none' : 'solid')}
 `;
 
 const DayText = styled.p`
