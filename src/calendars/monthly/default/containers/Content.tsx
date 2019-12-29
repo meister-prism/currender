@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { findDOMNode } from 'react-dom';
 import { RootState } from '../../../../reducers';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
 import { Content as ContentComponent } from '../components/Content';
@@ -57,19 +56,7 @@ const generateDayList = (now: moment.Moment): Array<string> => {
     return DayList;
 };
 
-type IState = {boundingBoxY: number};
-
-class Content extends React.Component<IStateToProps, IState> {
-    constructor(props: IStateToProps) {
-        super(props);
-        this.click = this.click.bind(this);
-    }
-
-    click() {
-        const { nowMonth } = this.props;
-        console.log(`click ${nowMonth}`);
-    }
-
+class Content extends React.Component<IStateToProps, {}> {
     render() {
         const { nowMonth, nowYear, Calendar } = this.props;
         const strMonth = `0${nowMonth}`.slice(-2);
