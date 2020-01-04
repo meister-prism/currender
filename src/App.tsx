@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
+import styled from 'styled-components';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
+import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
 
@@ -12,24 +14,32 @@ interface IStateToProps {
 
 interface IDispatchToProps {
     createConnection: (url: string) => void;
+    updateDatetime: () => void;
 }
 
 type IProps = IStateToProps & IDispatchToProps;
+type IState = { timerId: number }
 
-class App extends React.Component<IProps, {}> {
+class App extends React.Component<IProps, IState> {
     componentDidMount() {
-        const { createConnection } = this.props;
+        const { createConnection, updateDatetime } = this.props;
+        updateDatetime();
+        const timerId = setInterval(updateDatetime, 1000);
+        this.setState({ timerId });
         createConnection('ws://localhost:8080');
+    }
+
+    componentWillUnmount() {
+        const { timerId } = this.state;
+        clearInterval(timerId);
     }
 
     render() {
         const { connected } = this.props;
         return (
-            <div>
-                <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>
-                <Watch />
+            <Root>
                 <Title />
-            </div>
+            </Root>
         );
     }
 }
@@ -41,9 +51,16 @@ const mapStateToProps = (state: RootState): IStateToProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): IDispatchToProps => ({
     createConnection: (url: string) => dispatch(webSocketActionCreator.connect(url)),
+    updateDatetime: () => dispatch(currentActionCreator.updateNowDate()),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(App);
+
+
+const Root = styled.div`
+    height: 100%;
+    width: 100%;
+`;

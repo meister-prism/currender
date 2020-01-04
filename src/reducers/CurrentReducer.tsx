@@ -33,7 +33,7 @@ export interface IAstrology {
 }
 
 const initState: ICurrentState = {
-    nowDateTime: moment('2019-05-01T12:00:00'),
+    nowDateTime: moment('2019-05-10T12:00:00'),
     whatIsToday: '',
     weather: {
         date: moment('2019-05-01T12:00:00'),

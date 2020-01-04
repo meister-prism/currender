@@ -7,7 +7,7 @@ import { Title as TitleComponent } from '../components/Title';
 
 
 interface IStateToProps {
-    Date: string,
+    Date: moment.Moment,
     Weather: IWeather,
     Traffic: Array<ITraffic>,
     Astrology: Array<IAstrology>,
@@ -30,11 +30,14 @@ class Title extends React.Component<IProps, {}> {
         const Moment: moment.Moment = moment(Date);
         return (
             <TitleComponent
-                Month={Moment.format('M')}
-                MonthName={Moment.format('MMMM')}
+                Month={Date.format('M')}
+                MonthName={Date.format('MMMM')}
                 Weather={Weather}
                 Traffic={Traffic[0]}
                 Astrology={Astrology[0]}
+        const { Date } = this.props;
+        return (
+            <TitleComponent
             />
         );
     }
@@ -51,7 +54,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
         },
     } = state;
     return {
-        Date: nowDateTime.format('YYYY-MM-DD'),
+        Date: CurrentState.nowDateTime,
         Weather: weather,
         Traffic: traffic,
         Astrology: astrology,
