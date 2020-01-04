@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { Day as DayComponent } from '../components/Day';
+import moment from 'moment';
 
 interface tmpCal {
     date: string,
@@ -25,7 +27,10 @@ export function Content(props: Props): JSX.Element {
                     p = (index % 7 === 6) ? 'right' : p;
                     return (
                         <GridItem position={p}>
-                            <p>{value.date}</p>
+                            <DayComponent
+                                date={value.date}
+                                schedules={value.schedules}
+                            />
                         </GridItem>
                     );
                 })}
@@ -40,7 +45,7 @@ const Root = styled.div`
     margin: auto;
 `;
 
-const Grid = styled.div<{rows: number}>`
+const Grid = styled.div<{ rows: number }>`
     display: grid;
     width: 100%;
     height: calc(100% - 40px);
@@ -49,12 +54,11 @@ const Grid = styled.div<{rows: number}>`
     border-bottom: 1px solid gray;
 `;
 
-const GridItem = styled.div<{position?: string}>`
+const GridItem = styled.div<{ position?: string }>`
     border-style: solid;
     border-color: #a9a9a9 #d3d3d3;
     border-width: 1px;
     // padding: 1px;
-
     border-left-style: ${({ position }) => (position === 'left' ? 'none' : 'solid')}
     border-right-style: ${({ position }) => (position === 'right' ? 'none' : 'solid')}
 `;
