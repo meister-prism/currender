@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
+import styled from 'styled-components';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
@@ -36,11 +37,9 @@ class App extends React.Component<IProps, IState> {
     render() {
         const { connected } = this.props;
         return (
-            <div>
-                <p>{`WebSocket connected ? -> ${connected.toString()}`}</p>
-                <Watch />
+            <Root>
                 <Title />
-            </div>
+            </Root>
         );
     }
 }
@@ -59,3 +58,9 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(App);
+
+
+const Root = styled.div`
+    height: 100%;
+    width: 100%;
+`;
