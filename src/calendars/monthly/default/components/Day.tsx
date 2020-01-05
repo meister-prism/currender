@@ -18,43 +18,15 @@ export function Day(props: Props): JSX.Element {
     const day = moment(date).format('D');
     let A;
     const { schedules } = props;
-    if (weekday === '0') {
-        A = (
-            <Sunday>
-                <div>
-                    <P1>{day}</P1>
-                    <ul>予定</ul>
-                    {schedules.map((schedule) => (
-                        <li>{schedule.title}</li>
-                    ))}
-                </div>
-            </Sunday>
-        );
-    } else if (weekday === '6') {
-        A = (
-            <Saturday>
-                <div>
-                    <P1>{day}</P1>
-                    <ul>予定</ul>
-                    {schedules.map((schedule) => (
-                        <li>{schedule.startSchedule}</li>
-                    ))}
-                </div>
-            </Saturday>
-        );
-    } else {
-        A = (
-            <Root>
-                <div>
-                    <P1>{day}</P1>
-                    <ul>予定</ul>
-                    {schedules.map((schedule) => (
-                        <li>{schedule.title}</li>
-                    ))}
-                </div>
-            </Root>
-        );
-    }
+    A = (
+        <Root>
+            <div>
+                <P1 weekday={Number(weekday)}>{day}</P1>
+                <ul>予定</ul>
+                <div>{schedules}</div>
+            </div>
+        </Root>
+    );
     return (
         <div>
             {A}
@@ -68,10 +40,11 @@ const Root = styled.div`
     width: 150px
     background-color: #fff
 `;
-const P1 = styled.p`
+const P1 = styled.p<{ weekday: number }>`
     font-size: 2.5rem;
     padding: 10px;
     text-align: right;
+    color: ${({ weekday }) => weekday === 0 ? 'red' : 'black' && weekday === 6 ? 'blue' : 'black'}}
 `;
 const Sunday = styled(Root)`
     color: red;

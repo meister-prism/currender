@@ -12,7 +12,7 @@ interface IStateToProps {
 
 type IProps = IStateToProps;
 
-class Title extends React.Component<IProps, {}> {
+class Day extends React.Component<IProps, {}> {
     render() {
         return (
             <DayComponent
@@ -24,21 +24,14 @@ class Title extends React.Component<IProps, {}> {
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
+    const { CalendarState } = state;
     return {
-        Date: '2019-01-01',
-        schedules: [
-            {
-                title: 'testTitle',
-                description: 'by sun-yryr',
-                startSchedule: moment('2019-01-01'),
-                endSchedule: moment('2019-01-01'),
-                calendarName: 'Taiyo Minagawa',
-            },
-        ],
+        Date: '2020-01-01',
+        schedules: CalendarState.schedules['2020-01-01'],
     };
 };
 
 
 export default connect(
     mapStateToProps,
-)(Title);
+)(Day);
