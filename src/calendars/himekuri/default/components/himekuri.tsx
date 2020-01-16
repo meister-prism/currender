@@ -11,13 +11,20 @@ interface Props {
 export function TestHimekuri(props: Props) {
     const { title } = props;
     return (
-        <A>
-            <p>{`${title}`}</p>
-            <p>a</p>
-        </A>
+        <Flexbox>
+          <div classname="gallery">
+               <h1>{`${title}`}</h1>
+               <p>{`${title}`}</p>
+               <h2>{`${title}`}</h2>
+               <h3>{`${title}`}</h3>
+          </div>
+          <div classname="main">
+               <h1>{`${title}`}<h1>
+               <p>{`${title}`}<p>
+          </div>                
+        </Flexbox>
     );
 }
 
-const A = styled.p`
-   font-size:1000%;
-`;
+const Flexbox = styled.div`
+   display:flex;
