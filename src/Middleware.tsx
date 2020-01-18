@@ -1,7 +1,8 @@
 import { Action, Dispatch } from 'redux';
+import moment from 'moment';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
-import { IAstrology, ITraffic } from './reducers/CurrentReducer';
+import { IAstrology, ITraffic, IWeather } from './reducers/CurrentReducer';
 
 export enum WebSocketType {
     CONNECT = 'WEBSOCKET:CONNECT',
@@ -85,6 +86,34 @@ const websocketRecever = (event: MessageEvent, dispatch: Dispatch) => {
                 ...value,
             }));
             dispatch(currentActionCreator.updateTraffic(tmp));
+            break;
+        }
+        case 'today_weather': {
+            const date = moment(payload.date, 'YYYY-MM-DD');
+            const rate = payload.chanceOfRains.reduce((prev: number, now: string) => {
+                const now2 = parseInt(now, 10);
+                if (Number.isNaN(now2)) {
+                    return prev;
+                }
+                return prev + now2 * 0.01;
+            }, 0);
+            const weather: IWeather = {
+                date,
+                code: 1000,
+                title: payload.title,
+                description: payload.description,
+                temperature: {
+                    max: 1000,
+                    min: 1000,
+                },
+                rainfallProbability: rate,
+            };
+            dispatch(currentActionCreator.updateWeather(weather));
+            break;
+        }
+        case 'almanac': {
+            const { date, ...other } = payload;
+            dispatch(currentActionCreator.updateAlmanac(other));
             break;
         }
         default: {

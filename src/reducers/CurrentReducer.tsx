@@ -8,6 +8,7 @@ export interface ICurrentState {
     weather: IWeather,
     traffic: Array<ITraffic>,
     astrology: Array<IAstrology>,
+    almanac: IAlmanac,
 }
 
 export interface IWIT {
@@ -16,9 +17,10 @@ export interface IWIT {
 }
 
 export interface IWeather {
-    date: moment.Moment,
+    date: moment.Moment, // いるか？
     code: number,
-    text: string,
+    title: string,
+    description: string,
     temperature: {
         max: number,
         min: number,
@@ -37,6 +39,16 @@ export interface IAstrology {
     message: string,
 }
 
+export interface IAlmanac {
+    moonAge: number,
+    riseSet: {
+        sunriseTime?: moment.Moment,
+        sunsetTime?: moment.Moment,
+        moonriseTime?: moment.Moment,
+        moonsetTime?: moment.Moment,
+    }
+}
+
 const initState: ICurrentState = {
     nowDateTime: moment('2019-05-10T12:00:00'),
     whatIsToday: {
@@ -46,7 +58,8 @@ const initState: ICurrentState = {
     weather: {
         date: moment('2019-05-01T12:00:00'),
         code: 1,
-        text: '多分晴れだと思う',
+        title: '多分晴れだと思う',
+        description: 'なんか細かいやつ',
         temperature: {
             max: 20,
             min: -1,
@@ -62,6 +75,10 @@ const initState: ICurrentState = {
         constellation: '座',
         message: 'hogehoge',
     }],
+    almanac: {
+        moonAge: 0,
+        riseSet: {},
+    },
 };
 
 export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
@@ -100,6 +117,13 @@ export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
             return {
                 ...state,
                 astrology: payload,
+            };
+        }
+        case CurrentType.UPDATE_ALMANAC: {
+            const payload = action.payload as IAlmanac;
+            return {
+                ...state,
+                almanac: payload,
             };
         }
         default: {

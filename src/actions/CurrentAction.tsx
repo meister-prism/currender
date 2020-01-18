@@ -1,5 +1,11 @@
 import { Action } from 'redux';
-import { IWeather, ITraffic, IAstrology, IWIT } from '../reducers/CurrentReducer';
+import {
+    IWeather,
+    ITraffic,
+    IAstrology,
+    IWIT,
+    IAlmanac,
+} from '../reducers/CurrentReducer';
 
 export enum CurrentType {
     UPDATE_DATETIME = 'UPDATE_DATETIME',
@@ -7,6 +13,7 @@ export enum CurrentType {
     UPDATE_WEATHER = 'UPDATE_WEATHER',
     UPDATE_TRAFFIC = 'UPDATE_TRAFFIC',
     UPDATE_ASTROLOGY = 'UPDATE_ASTROLOGY',
+    UPDATE_ALMANAC = 'UPDATE_ALMANAC',
 }
 
 interface ICurrentDateTimeAction extends Action {
@@ -33,11 +40,17 @@ interface ICurrentAstrologyAction extends Action {
     payload: Array<IAstrology>,
 }
 
+interface ICurrentAlmanacActioin extends Action {
+    type: CurrentType.UPDATE_ALMANAC,
+    payload: IAlmanac,
+}
+
 export type CurrentAction = ICurrentDateTimeAction
                             | ICurrentWITAction
                             | ICurrentWeatherAction
                             | ICurrentTrafficAction
-                            | ICurrentAstrologyAction;
+                            | ICurrentAstrologyAction
+                            | ICurrentAlmanacActioin;
 
 interface ICurrentActionCreator {
     updateNowDate(): ICurrentDateTimeAction,
@@ -45,6 +58,7 @@ interface ICurrentActionCreator {
     updateWeather(value: IWeather): ICurrentWeatherAction,
     updateTraffic(value: Array<ITraffic>): ICurrentTrafficAction,
     updateAstrology(value: Array<IAstrology>): ICurrentAstrologyAction,
+    updateAlmanac(value: IAlmanac): ICurrentAlmanacActioin,
 }
 
 
@@ -70,6 +84,11 @@ class CurrentActionCreator implements ICurrentActionCreator {
 
     public updateAstrology = (value: Array<IAstrology>):ICurrentAstrologyAction => ({
         type: CurrentType.UPDATE_ASTROLOGY,
+        payload: value,
+    });
+
+    public updateAlmanac = (value: IAlmanac): ICurrentAlmanacActioin => ({
+        type: CurrentType.UPDATE_ALMANAC,
         payload: value,
     });
 }
