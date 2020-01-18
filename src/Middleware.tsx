@@ -1,5 +1,7 @@
-import { Action } from 'redux';
+import { Action, Dispatch } from 'redux';
 import { webSocketActionCreator } from './actions/WebSocketAction';
+import { currentActionCreator } from './actions/CurrentAction';
+import { IAstrology, ITraffic } from './reducers/CurrentReducer';
 
 export enum WebSocketType {
     CONNECT = 'WEBSOCKET:CONNECT',
@@ -30,7 +32,7 @@ type WebSocketAction =
     | IWebSocketDisconnectAction;
 
 let websocket: WebSocket;
-export const Middleware = ({ dispatch }: { dispatch: any }) => (next: any) => (action: WebSocketAction) => {
+export const Middleware = ({ dispatch }: { dispatch: Dispatch }) => (next: any) => (action: WebSocketAction) => {
     switch (action.type) {
         case 'WEBSOCKET:CONNECT': {
             websocket = new WebSocket(action.payload.url);
@@ -41,7 +43,8 @@ export const Middleware = ({ dispatch }: { dispatch: any }) => (next: any) => (a
             websocket.onopen = () => dispatch(webSocketActionCreator.open());
             websocket.onclose = (event) => dispatch(webSocketActionCreator.close(event));
             // onMessageは各reducerを呼ぶ必要があるので，actionCreatorをdispatchしない
-            websocket.onmessage = (event) => dispatch({ type: 'WEBSOCKET:MESSAGE', payload: event });
+            // eslint-disable-next-line no-use-before-define
+            websocket.onmessage = (event) => websocketRecever(event, dispatch);
 
             break;
         }
@@ -57,4 +60,35 @@ export const Middleware = ({ dispatch }: { dispatch: any }) => (next: any) => (a
             break;
     }
     return next(action);
+};
+
+
+const websocketRecever = (event: MessageEvent, dispatch: Dispatch) => {
+    const receveData = JSON.parse(event.data);
+    const { payload } = receveData;
+    console.log(receveData.EventName);
+    switch (receveData.EventName) {
+        case 'what_is_today': {
+            dispatch(currentActionCreator.updateWhatIsToday(payload));
+            break;
+        }
+        case 'fortune': {
+            const tmp: Array<IAstrology> = payload.fortunesArray.map((value: any) => ({
+                constellation: value.sign,
+                message: value.content,
+            }));
+            dispatch(currentActionCreator.updateAstrology(tmp));
+            break;
+        }
+        case 'traffic': {
+            const tmp: Array<ITraffic> = payload.train.map((value: any) => ({
+                ...value,
+            }));
+            dispatch(currentActionCreator.updateTraffic(tmp));
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 };

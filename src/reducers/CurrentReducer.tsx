@@ -4,10 +4,15 @@ import { CurrentAction, CurrentType } from '../actions/CurrentAction';
 
 export interface ICurrentState {
     nowDateTime: moment.Moment,
-    whatIsToday: string,
+    whatIsToday: IWIT,
     weather: IWeather,
     traffic: Array<ITraffic>,
     astrology: Array<IAstrology>,
+}
+
+export interface IWIT {
+    title: string,
+    description: string,
 }
 
 export interface IWeather {
@@ -34,7 +39,10 @@ export interface IAstrology {
 
 const initState: ICurrentState = {
     nowDateTime: moment('2019-05-10T12:00:00'),
-    whatIsToday: '',
+    whatIsToday: {
+        title: 'test',
+        description: 'test',
+    },
     weather: {
         date: moment('2019-05-01T12:00:00'),
         code: 1,
@@ -81,13 +89,17 @@ export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
             };
         }
         case CurrentType.UPDATE_TRAFFIC: {
+            const payload = action.payload as Array<ITraffic>;
             return {
                 ...state,
+                traffic: payload,
             };
         }
         case CurrentType.UPDATE_ASTROLOGY: {
+            const payload = action.payload as Array<IAstrology>;
             return {
                 ...state,
+                astrology: payload,
             };
         }
         default: {
