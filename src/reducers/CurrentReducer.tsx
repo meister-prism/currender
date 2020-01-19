@@ -101,8 +101,10 @@ export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
         }
         /* ここから下未実装 */
         case CurrentType.UPDATE_WEATHER: {
+            const payload = action.payload as IWeather;
             return {
                 ...state,
+                weather: payload,
             };
         }
         case CurrentType.UPDATE_TRAFFIC: {

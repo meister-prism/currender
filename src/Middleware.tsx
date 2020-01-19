@@ -63,7 +63,7 @@ export const Middleware = ({ dispatch }: { dispatch: Dispatch }) => (next: any) 
     return next(action);
 };
 
-
+// WebSocketの受信を振り分ける関数
 const websocketRecever = (event: MessageEvent, dispatch: Dispatch) => {
     const receveData = JSON.parse(event.data);
     const { payload } = receveData;
