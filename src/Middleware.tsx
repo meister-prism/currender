@@ -45,7 +45,7 @@ export const Middleware = ({ dispatch }: { dispatch: Dispatch }) => (next: any) 
             websocket.onclose = (event) => dispatch(webSocketActionCreator.close(event));
             // onMessageは各reducerを呼ぶ必要があるので，actionCreatorをdispatchしない
             // eslint-disable-next-line no-use-before-define
-            websocket.onmessage = (event) => websocketRecever(event, dispatch);
+            websocket.onmessage = (event) => websocketReceiver(event, dispatch);
 
             break;
         }
@@ -64,7 +64,7 @@ export const Middleware = ({ dispatch }: { dispatch: Dispatch }) => (next: any) 
 };
 
 // WebSocketの受信を振り分ける関数
-const websocketRecever = (event: MessageEvent, dispatch: Dispatch) => {
+const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
     const receveData = JSON.parse(event.data);
     const { payload } = receveData;
     console.log(receveData.EventName);
