@@ -12,22 +12,22 @@ export function TestHimekuri(props: Props) {
     const { title } = props;
     return (
         <Flexbox>
-          <Gallery>
-               <h1>04</h1>
-               <p>April</p>
-               <h2>レポート締め切り</h2>
-               <h3>14:00-15:00 </h3>
-          </Gallery>
-          <Main>
-               <h1>{`${title}`}</h1>
-               <p>{`${title}`}</p>
-          </Main>    
-          <Side>   
-              <>
-          </Side>             
+            <Gallery>
+                <h1>04</h1>
+                <p>April</p>
+                <h2>レポート締め切り</h2>
+                <h3>14:00-15:00 </h3>
+            </Gallery>
+            <Main>
+                <h1>{`${title}`}</h1>
+                <p>{`${title}`}</p>
+            </Main>
+            <Side>
+            </Side>
         </Flexbox>
     );
 }
 
 const Flexbox = styled.div`
-   display:flex;
+    display:flex;
+`
