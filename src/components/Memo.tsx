@@ -11,12 +11,13 @@ interface Props {
 }
 
 const Root = styled.div`
-    width: 500px
-    height: 500px
-    border: 1px solid gray
-    backgroundColor: white
+    
 `;
 
+const canvasStyle = {
+    border: '1px solid gray',
+    backgroundColor: 'white',
+};
 
 export function Memo(props: Props): JSX.Element {
     const {
@@ -28,11 +29,17 @@ export function Memo(props: Props): JSX.Element {
         clearCanvas,
     } = props;
     return (
-        <Root id="canvas">
-            {onMouseDown}
-            {onMouseUp}
-            {onMouseLeave}
-            {onMouseMove}
+        <Root>
+            <canvas
+                width="500px"
+                height="400px"
+                id="canvas"
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                onMouseLeave={onMouseLeave}
+                onMouseMove={onMouseMove}
+                style={canvasStyle}
+            />
             <p>
                 <a onClick={saveCanvas} id="download" download="sample.jpg">
                     save

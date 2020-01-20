@@ -36,6 +36,8 @@ class Canvas extends React.Component<{}, State> {
     startDrawing(x: number, y: number) {
         this.setState({ drawing: true });
         const ctx = this.getContext2D();
+        // const canvas: any = document.getElementById('canvas');
+        // const ctx = canvas.getContext('2d');
         ctx.moveTo(x, y);
     }
 
