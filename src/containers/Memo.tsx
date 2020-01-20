@@ -25,6 +25,7 @@ class Canvas extends React.Component<{}, State> {
         const canvas: any = document.getElementById('canvas');
         const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
     }
 
     constructor(props: any) {
