@@ -7,6 +7,7 @@ import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
+import Memo from './containers/Memo';
 
 interface IStateToProps {
     connected: boolean;
@@ -39,6 +40,7 @@ class App extends React.Component<IProps, IState> {
         return (
             <Root>
                 <Title />
+                <Memo />
             </Root>
         );
     }
