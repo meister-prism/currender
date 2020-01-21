@@ -2,7 +2,7 @@ import { Action } from 'redux';
 import {
     IWeather,
     ITraffic,
-    IAstrology,
+    IFortune,
     IWIT,
     IAlmanac,
 } from '../reducers/CurrentReducer';
@@ -37,7 +37,7 @@ interface ICurrentTrafficAction extends Action {
 
 interface ICurrentAstrologyAction extends Action {
     type: CurrentType.UPDATE_ASTROLOGY,
-    payload: Array<IAstrology>,
+    payload: Array<IFortune>,
 }
 
 interface ICurrentAlmanacActioin extends Action {
@@ -57,7 +57,7 @@ interface ICurrentActionCreator {
     updateWhatIsToday(value: IWIT): ICurrentWITAction,
     updateWeather(value: IWeather): ICurrentWeatherAction,
     updateTraffic(value: Array<ITraffic>): ICurrentTrafficAction,
-    updateAstrology(value: Array<IAstrology>): ICurrentAstrologyAction,
+    updateAstrology(value: Array<IFortune>): ICurrentAstrologyAction,
     updateAlmanac(value: IAlmanac): ICurrentAlmanacActioin,
 }
 
@@ -82,7 +82,7 @@ class CurrentActionCreator implements ICurrentActionCreator {
         payload: value,
     });
 
-    public updateAstrology = (value: Array<IAstrology>):ICurrentAstrologyAction => ({
+    public updateAstrology = (value: Array<IFortune>):ICurrentAstrologyAction => ({
         type: CurrentType.UPDATE_ASTROLOGY,
         payload: value,
     });

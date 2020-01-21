@@ -2,7 +2,7 @@ import { Action, Dispatch } from 'redux';
 import moment from 'moment';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
-import { IAstrology, ITraffic, IWeather } from './reducers/CurrentReducer';
+import { IFortune, ITraffic, IWeather } from './reducers/CurrentReducer';
 
 export enum WebSocketType {
     CONNECT = 'WEBSOCKET:CONNECT',
@@ -74,7 +74,7 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
             break;
         }
         case 'fortune': {
-            const tmp: Array<IAstrology> = payload.fortunesArray.map((value: any) => ({
+            const tmp: Array<IFortune> = payload.fortunesArray.map((value: any) => ({
                 constellation: value.sign,
                 message: value.content,
             }));
@@ -90,13 +90,14 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
         }
         case 'today_weather': {
             const date = moment(payload.date, 'YYYY-MM-DD');
-            const rate = payload.chanceOfRains.reduce((prev: number, now: string) => {
+            const rate: string = payload.chanceOfRains.reduce((prev: string, now: string) => {
+                const prev2 = parseInt(prev, 10);
                 const now2 = parseInt(now, 10);
                 if (Number.isNaN(now2)) {
                     return prev;
                 }
-                return prev + now2 * 0.01;
-            }, 0);
+                return (prev2 > now2) ? prev : now;
+            }, '0%');
             const weather: IWeather = {
                 date,
                 code: 1000,
@@ -106,6 +107,7 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
                     max: 1000,
                     min: 1000,
                 },
+                chanceOfRain: payload.chanceOfRains,
                 rainfallProbability: rate,
             };
             dispatch(currentActionCreator.updateWeather(weather));

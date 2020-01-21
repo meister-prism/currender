@@ -7,7 +7,7 @@ export interface ICurrentState {
     whatIsToday: IWIT,
     weather: IWeather,
     traffic: Array<ITraffic>,
-    astrology: Array<IAstrology>,
+    fortune: Array<IFortune>,
     almanac: IAlmanac,
 }
 
@@ -25,7 +25,8 @@ export interface IWeather {
         max: number,
         min: number,
     },
-    rainfallProbability: number,
+    chanceOfRain: Array<string>,
+    rainfallProbability: string,
 }
 
 export interface ITraffic {
@@ -34,7 +35,7 @@ export interface ITraffic {
     description: string,
 }
 
-export interface IAstrology {
+export interface IFortune {
     constellation: string,
     message: string,
 }
@@ -64,14 +65,15 @@ const initState: ICurrentState = {
             max: 20,
             min: -1,
         },
-        rainfallProbability: 0.5,
+        chanceOfRain: ['0%, 10%, 0%, 50%'],
+        rainfallProbability: '20%',
     },
     traffic: [{
         line: '中央線',
         serviceStatus: '常に遅延',
         description: '学校行く時いつも遅れてませんか？',
     }],
-    astrology: [{
+    fortune: [{
         constellation: '座',
         message: 'hogehoge',
     }],
@@ -115,10 +117,10 @@ export const CurrentReducer: Reducer<ICurrentState, CurrentAction> = (
             };
         }
         case CurrentType.UPDATE_ASTROLOGY: {
-            const payload = action.payload as Array<IAstrology>;
+            const payload = action.payload as Array<IFortune>;
             return {
                 ...state,
-                astrology: payload,
+                fortune: payload,
             };
         }
         case CurrentType.UPDATE_ALMANAC: {
