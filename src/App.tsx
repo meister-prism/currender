@@ -7,6 +7,7 @@ import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
+import { GoogleApi } from './GoogleApi';
 
 interface IStateToProps {
     connected: boolean;
@@ -21,6 +22,13 @@ type IProps = IStateToProps & IDispatchToProps;
 type IState = { timerId: number }
 
 class App extends React.Component<IProps, IState> {
+    googleapi: GoogleApi;
+
+    constructor(props: any) {
+        super(props);
+        this.googleapi = new GoogleApi();
+    }
+
     componentDidMount() {
         const { createConnection, updateDatetime } = this.props;
         updateDatetime();
@@ -39,6 +47,7 @@ class App extends React.Component<IProps, IState> {
         return (
             <Root>
                 <Title />
+                <a href={this.googleapi.AuthUrl()}>login</a>
             </Root>
         );
     }
