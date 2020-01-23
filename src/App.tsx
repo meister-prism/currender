@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import styled from 'styled-components';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
@@ -22,13 +23,6 @@ type IProps = IStateToProps & IDispatchToProps;
 type IState = { timerId: number }
 
 class App extends React.Component<IProps, IState> {
-    googleapi: GoogleApi;
-
-    constructor(props: any) {
-        super(props);
-        this.googleapi = new GoogleApi();
-    }
-
     componentDidMount() {
         const { createConnection, updateDatetime } = this.props;
         updateDatetime();
@@ -46,8 +40,10 @@ class App extends React.Component<IProps, IState> {
         const { connected } = this.props;
         return (
             <Root>
-                <Title />
-                <a href={this.googleapi.AuthUrl()}>login</a>
+                <BrowserRouter>
+                    <Route component={GoogleApi} />
+                    <Title />
+                </BrowserRouter>
             </Root>
         );
     }
