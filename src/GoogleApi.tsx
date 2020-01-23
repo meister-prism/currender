@@ -37,6 +37,7 @@ export class GoogleApi extends React.Component<RouteComponentProps, IState> {
         return url;
     }
 
+    // codeからtokenを取得する。バックグラウンド処理。保存したトークンはredux or this.state
     async authorization() {
         const { CODE, CLIENT_ID } = this.state;
         axios.post('https://www.googleapis.com/oauth2/v4/token', {
@@ -45,6 +46,7 @@ export class GoogleApi extends React.Component<RouteComponentProps, IState> {
         });
     }
 
+    // code取得前はlinkを表示している
     render() {
         const url = this.getAuthUrl();
         const { isLogin } = this.state;
