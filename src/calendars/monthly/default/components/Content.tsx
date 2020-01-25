@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
-import { Day as DayComponent } from '../components/Day';
 import moment from 'moment';
+import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { Day as DayComponent } from './Day';
 
 interface tmpCal {
     date: string,
