@@ -27,7 +27,7 @@ export function TestHimekuri(props: Props) {
                     <Temp>
                         <HighTemp>20</HighTemp>
                         /
-                        <RowTemp>15</RowTemp>
+                        <RowTemp>16</RowTemp>
                         ℃
                     </Temp>
                     <p>今日はCO₂の日です．息を吸いましょう．</p>
@@ -84,22 +84,27 @@ const Main = styled.div`
 `;
 
 const News = styled.span`
-    
+        font-size: 20px;
+        font-weight: 400;
 `;
 
 const Temp = styled.samp`
     font-size: 30px;
+    padding: 5px 0;
 `;
 
 const HighTemp = styled.samp`
     color: tomato;
+    padding: 0 0.5px;
 `;
 
 const RowTemp = styled.samp`
     color: dodgerblue;
+    padding: 0 0.5px;
 `;
 
 const NewsBox = styled.samp`
+    width: 100%;
     border: thin solid silver;
     border-radius: 3px;
     margin: 0 0 1em;
