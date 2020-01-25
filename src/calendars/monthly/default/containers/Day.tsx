@@ -12,15 +12,14 @@ interface IStateToProps {
 
 type IProps = IStateToProps;
 
-class Day extends React.Component<IProps, {}> {
-    render() {
-        return (
-            <DayComponent
-                date={this.props.Date}
-                schedules={this.props.schedules}
-            />
-        );
-    }
+function Day(props: IProps) {
+    const { Date, schedules } = props;
+    return (
+        <DayComponent
+            date={Date}
+            schedules={schedules}
+        />
+    );
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
