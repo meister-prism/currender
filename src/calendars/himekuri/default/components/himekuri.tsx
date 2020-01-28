@@ -12,7 +12,7 @@ export function TestHimekuri(props: Props) {
     const { title } = props;
     return (
         <Root>
-            <Flex>
+            <FlexBox>
                 <Gallery>
                     <h1>04</h1>
                     <p>April</p>
@@ -38,21 +38,20 @@ export function TestHimekuri(props: Props) {
                         <p>[News]</p>
                     </NewsBox>
                 </News>
-            </Flex>
+            </FlexBox>
         </Root>
     );
 }
 
 const Root = styled.div`
-    height: 1280px;
-    width: 1080px;
+    dispiay: flex;
+    width: 100%;
     margin: 0 aout;
     text-aling: left;
 `;
-const Flex = styled.div`
+
+const FlexBox = styled.div`
     display: flex;
-    width: 100%;
-    heigth: 100%;
 `;
 
 const Gallery = styled.div`
