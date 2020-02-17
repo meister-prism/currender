@@ -12,6 +12,7 @@ export function TestHimekuri(props: Props) {
     const { title } = props;
     return (
         <Root>
+            <Bar />
             <FlexBox>
                 <Gallery>
                     <h1>04</h1>
@@ -50,20 +51,32 @@ const Root = styled.div`
     text-aling: left;
 `;
 
+const Bar = styled.div`
+    width: 100%;
+    height: 15px;
+    margin: 0 auto;
+    background-color: black;
+`;
+
 const FlexBox = styled.div`
     display: flex;
+    padding: 0px 30px 25px 45px;
+    background-color: #eee;
 `;
 
 const Gallery = styled.div`
     h1{
         font-size: 50px;
+        margin: 45px 0px 0px 0px;
     }
     p{
         font-size: 25px;
         font-weight: 800;
+        margin: 0px 0px 90px 0px;
     }
     h2{
         font-size: 20px;
+        margin: 0px 0px 100px 0px;
     }
     h3{
         font-size: 14px;
@@ -74,39 +87,46 @@ const Gallery = styled.div`
 const Main = styled.div`
     h1{
         font-size: 200px;
-        font-family: 'Gulim',;
+        height: 190px;
+        font-family: 'Gulim';
+        margin: 150px 0px 0px 0px;
     }
     p{
         font-size: 30px;
         color: darkgray;
+        margin: 34px;
     }
 `;
 
 const News = styled.span`
-        font-size: 20px;
-        font-weight: 400;
+        width: 40%;
+        dispiay: block;
+        float: rigght;
+        margin: 2em 1em;
+        padding: 360px 0px 0px 0px;
 `;
 
-const Temp = styled.samp`
+const Temp = styled.span`
     font-size: 30px;
     padding: 5px 0;
 `;
 
-const HighTemp = styled.samp`
+const HighTemp = styled.span`
     color: tomato;
     padding: 0 0.5px;
 `;
 
-const RowTemp = styled.samp`
+const RowTemp = styled.span`
     color: dodgerblue;
     padding: 0 0.5px;
 `;
 
-const NewsBox = styled.samp`
-    width: 100%;
+const NewsBox = styled.span`
+    width: 95%;
     border: thin solid silver;
     border-radius: 3px;
     margin: 0 0 1em;
     padding: 0 5px;
     display: block;
+    font-size: 10px;
 `;
