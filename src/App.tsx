@@ -7,6 +7,7 @@ import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
+import { GetGoogleCalendar } from './googleCalendar';
 
 interface IStateToProps {
     connected: boolean;
@@ -26,6 +27,8 @@ class App extends React.Component<IProps, IState> {
         updateDatetime();
         const timerId = setInterval(updateDatetime, 1000);
         this.setState({ timerId });
+        // setInterval(GetGoogleCalendar,600000);
+        GetGoogleCalendar();
         createConnection('ws://localhost:8080');
     }
 

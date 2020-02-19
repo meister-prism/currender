@@ -22,5 +22,6 @@
   "include": [
     "src/**/*.tsx",
     "src/**/*.ts",
-  ]
+  ],
+  "types": ["gpai","gpai.auth2","gpai.client","gpai.client.calendar"]
 }
