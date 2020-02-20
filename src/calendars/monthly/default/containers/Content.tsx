@@ -69,6 +69,7 @@ class Content extends React.Component<IStateToProps, {}> {
                 schedules,
             };
         });
+        console.log(calendarData);
         return (
             <ContentComponent
                 calendar={calendarData}

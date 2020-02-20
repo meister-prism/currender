@@ -20,7 +20,9 @@ export function Content(props: Props): JSX.Element {
     return (
         <Root>
             <Grid rows={rows}>
-                {days.map((value) => <DayText>{value}</DayText>)}
+                {days.map((value, index) => (
+                    <DayText key={index}>{value}</DayText>
+                ))}
                 {calendar.map((value, index) => {
                     // 左右のときに横罫線が消えているデザインだったので
                     let p = (index % 7 === 0) ? 'left' : undefined;
