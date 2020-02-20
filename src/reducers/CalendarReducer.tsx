@@ -20,8 +20,8 @@ const initState: ICalendarState = {
             {
                 title: 'testTitle',
                 description: 'by sun-yryr',
-                startSchedule: moment('2020-01-01'),
-                endSchedule: moment('2020-01-01'),
+                startSchedule: moment('2020-02-04'),
+                endSchedule: moment('2020-02-04'),
                 calendarName: 'Taiyo Minagawa',
             },
         ],
