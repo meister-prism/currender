@@ -63,7 +63,7 @@ class Content extends React.Component<IStateToProps, {}> {
         const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
         const DayList = generateDayList(tmpMoment);
         const calendarData = DayList.map((value) => {
-            const schedules = Calendar[value] === undefined ? Calendar[value] : [];
+            const schedules = Calendar[value] !== undefined ? Calendar[value] : [];
             return {
                 date: value,
                 schedules,
