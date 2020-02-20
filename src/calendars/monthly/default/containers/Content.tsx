@@ -9,10 +9,16 @@ interface calendarTmp {
     [key: string]: Array<CalendarEvent>,
 }
 
+interface calendarColor {
+    name: string,
+    color: string,
+}
+
 interface IStateToProps {
     nowMonth: number,
     nowYear: number,
     Calendar: calendarTmp,
+    cColor: Array<calendarColor>,
 }
 
 /* functions */
@@ -78,13 +84,14 @@ class Content extends React.Component<IStateToProps, {}> {
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
-    const { CalendarState, CurrentState } = state;
+    const { CalendarState, CurrentState, cColor } = state;
     const nowMonth = CurrentState.nowDateTime.month() + 1;
     const nowYear = CurrentState.nowDateTime.year();
     return {
         nowMonth,
         nowYear,
         Calendar: CalendarState.schedules,
+        cColor,
     };
 };
 
