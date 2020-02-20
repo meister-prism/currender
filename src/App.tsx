@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
-import Watch from './containers/sample/Watch';
-import Title from './calendars/monthly/default/containers/Title';
 import { IWIT } from './reducers/CurrentReducer';
+import MonthlyCalendar from './calendars/monthly/default';
 
 interface IStateToProps {
     connected: boolean;
@@ -40,8 +39,7 @@ class App extends React.Component<IProps, IState> {
         const { connected, wit } = this.props;
         return (
             <Root>
-                <p>{wit.title}</p>
-                <Title />
+                <MonthlyCalendar />
             </Root>
         );
     }

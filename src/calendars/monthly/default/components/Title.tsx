@@ -1,14 +1,14 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../../../../assets/sun.png';
-import { IWeather, ITraffic, IAstrology } from '../../../../reducers/CurrentReducer';
+import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
 
 interface Props {
     Month: string,
     MonthName: string,
     Weather: IWeather,
     Traffic: ITraffic,
-    Astrology: IAstrology,
+    Fortune: IFortune,
 }
 
 const Bar = styled.div`
@@ -82,7 +82,7 @@ export function Title(props: Props): JSX.Element {
         MonthName,
         Weather,
         Traffic,
-        Astrology,
+        Fortune,
     } = props;
     return (
         <Root>
@@ -115,9 +115,9 @@ export function Title(props: Props): JSX.Element {
                 ) : null}
                 <NewsBox>
                     <span>【占い】</span>
-                    <span>{Astrology.constellation}</span>
+                    <span>{Fortune.constellation}</span>
                     <br />
-                    <NewsText>{Astrology.message}</NewsText>
+                    <NewsText>{Fortune.message}</NewsText>
                 </NewsBox>
             </News>
         </Root>
