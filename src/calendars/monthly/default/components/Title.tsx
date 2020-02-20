@@ -20,6 +20,7 @@ const Bar = styled.div`
 
 const Root = styled.div`
     width: 100%
+    min-height: 400px
     margin: 0 auto
     text-align: left
 `;
