@@ -16,9 +16,25 @@ export interface ICalendarState {
 
 const initState: ICalendarState = {
     schedules: {
+        '2020-02-03': [
+            {
+                title: 'testTitle',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-03'),
+                endSchedule: moment('2020-02-04'),
+                calendarName: 'Taiyo Minagawa',
+            },
+        ],
         '2020-02-04': [
             {
                 title: 'testTitle',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-03'),
+                endSchedule: moment('2020-02-04'),
+                calendarName: 'Taiyo Minagawa',
+            },
+            {
+                title: 'testTitle6',
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-04'),
                 endSchedule: moment('2020-02-04'),
