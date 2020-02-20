@@ -32,8 +32,8 @@ export function Day(props: Props): JSX.Element {
 
 const Root = styled.div`
     margin: auto
-    height: 300px
-    width: 150px
+    width: auto
+    height: auto
 `;
 const P1 = styled.p<{ weekday: number }>`
     font-size: 2.5rem;
