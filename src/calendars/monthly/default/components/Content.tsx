@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -28,7 +29,7 @@ export function Content(props: Props): JSX.Element {
                     let p = (index % 7 === 0) ? 'left' : undefined;
                     p = (index % 7 === 6) ? 'right' : p;
                     return (
-                        <GridItem position={p}>
+                        <GridItem key={index} position={p}>
                             <DayComponent
                                 date={value.date}
                                 schedules={value.schedules}

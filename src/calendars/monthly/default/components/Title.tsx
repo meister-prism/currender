@@ -1,14 +1,14 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../../../../assets/sun.png';
-import { IWeather, ITraffic, IAstrology } from '../../../../reducers/CurrentReducer';
+import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
 
 interface Props {
     Month: string,
     MonthName: string,
     Weather: IWeather,
     Traffic: ITraffic,
-    Astrology: IAstrology,
+    Astrology: IFortune,
 }
 
 const Bar = styled.div`
