@@ -13,4 +13,6 @@ export default function monthlyDefault() {
 }
 
 const Main = styled.div`
+    height: 100%;
+    width: 100%;
 `;
