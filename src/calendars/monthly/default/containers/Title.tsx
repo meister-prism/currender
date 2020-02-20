@@ -2,7 +2,7 @@ import * as React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../reducers';
-import { IWeather, ITraffic, IAstrology } from '../../../../reducers/CurrentReducer';
+import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
 import { Title as TitleComponent } from '../components/Title';
 
 
@@ -10,7 +10,7 @@ interface IStateToProps {
     Date: string,
     Weather: IWeather,
     Traffic: Array<ITraffic>,
-    Astrology: Array<IAstrology>,
+    Astrology: Array<IFortune>,
 }
 
 type IProps = IStateToProps;
@@ -47,14 +47,14 @@ const mapStateToProps = (state: RootState): IStateToProps => {
             nowDateTime,
             weather,
             traffic,
-            astrology,
+            fortune,
         },
     } = state;
     return {
         Date: nowDateTime.format('YYYY-MM-DD'),
         Weather: weather,
         Traffic: traffic,
-        Astrology: astrology,
+        Astrology: fortune,
     };
 };
 

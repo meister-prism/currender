@@ -1,6 +1,9 @@
+/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { Day as DayComponent } from './Day';
 
 interface tmpCal {
     date: string,
@@ -18,14 +21,19 @@ export function Content(props: Props): JSX.Element {
     return (
         <Root>
             <Grid rows={rows}>
-                {days.map((value) => <DayText>{value}</DayText>)}
+                {days.map((value, index) => (
+                    <DayText key={index}>{value}</DayText>
+                ))}
                 {calendar.map((value, index) => {
                     // 左右のときに横罫線が消えているデザインだったので
                     let p = (index % 7 === 0) ? 'left' : undefined;
                     p = (index % 7 === 6) ? 'right' : p;
                     return (
-                        <GridItem position={p}>
-                            <p>{value.date}</p>
+                        <GridItem key={index} position={p}>
+                            <DayComponent
+                                date={value.date}
+                                schedules={value.schedules}
+                            />
                         </GridItem>
                     );
                 })}
@@ -40,7 +48,7 @@ const Root = styled.div`
     margin: auto;
 `;
 
-const Grid = styled.div<{rows: number}>`
+const Grid = styled.div<{ rows: number }>`
     display: grid;
     width: 100%;
     height: calc(100% - 40px);
@@ -49,12 +57,11 @@ const Grid = styled.div<{rows: number}>`
     border-bottom: 1px solid gray;
 `;
 
-const GridItem = styled.div<{position?: string}>`
+const GridItem = styled.div<{ position?: string }>`
     border-style: solid;
     border-color: #a9a9a9 #d3d3d3;
     border-width: 1px;
     // padding: 1px;
-
     border-left-style: ${({ position }) => (position === 'left' ? 'none' : 'solid')}
     border-right-style: ${({ position }) => (position === 'right' ? 'none' : 'solid')}
 `;

@@ -7,6 +7,7 @@ import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
+import Content from './calendars/monthly/default/containers/Content';
 import { IWIT } from './reducers/CurrentReducer';
 
 interface IStateToProps {
@@ -42,6 +43,7 @@ class App extends React.Component<IProps, IState> {
             <Root>
                 <p>{wit.title}</p>
                 <Title />
+                <Content />
             </Root>
         );
     }
