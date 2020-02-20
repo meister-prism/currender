@@ -103,13 +103,16 @@ export function Title(props: Props): JSX.Element {
                     %
                 </Temp>
                 <p>今日はCO2の日です．息を吸いましょう．</p>
-                <NewsBox>
-                    <span>【遅延情報】</span>
-                    <span>{Traffic.line}</span>
-                    <br />
-                    <NewsText>{Traffic.serviceStatus}</NewsText>
-                    <NewsText>{Traffic.description}</NewsText>
-                </NewsBox>
+                {/* 遅延情報がない時 Traffic[0] == undefined なので応急処置しました */}
+                {(Traffic !== undefined) ? (
+                    <NewsBox>
+                        <span>【遅延情報】</span>
+                        <span>{Traffic.line}</span>
+                        <br />
+                        <NewsText>{Traffic.serviceStatus}</NewsText>
+                        <NewsText>{Traffic.description}</NewsText>
+                    </NewsBox>
+                ) : null}
                 <NewsBox>
                     <span>【占い】</span>
                     <span>{Astrology.constellation}</span>

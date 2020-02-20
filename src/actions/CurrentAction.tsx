@@ -1,5 +1,11 @@
 import { Action } from 'redux';
-import { IWeather, ITraffic, IAstrology } from '../reducers/CurrentReducer';
+import {
+    IWeather,
+    ITraffic,
+    IFortune,
+    IWIT,
+    IAlmanac,
+} from '../reducers/CurrentReducer';
 
 export enum CurrentType {
     UPDATE_DATETIME = 'UPDATE_DATETIME',
@@ -7,6 +13,7 @@ export enum CurrentType {
     UPDATE_WEATHER = 'UPDATE_WEATHER',
     UPDATE_TRAFFIC = 'UPDATE_TRAFFIC',
     UPDATE_ASTROLOGY = 'UPDATE_ASTROLOGY',
+    UPDATE_ALMANAC = 'UPDATE_ALMANAC',
 }
 
 interface ICurrentDateTimeAction extends Action {
@@ -15,7 +22,7 @@ interface ICurrentDateTimeAction extends Action {
 
 interface ICurrentWITAction extends Action {
     type: CurrentType.UPDATE_WHATISTODAY,
-    payload: string,
+    payload: IWIT,
 }
 
 interface ICurrentWeatherAction extends Action {
@@ -30,21 +37,28 @@ interface ICurrentTrafficAction extends Action {
 
 interface ICurrentAstrologyAction extends Action {
     type: CurrentType.UPDATE_ASTROLOGY,
-    payload: Array<IAstrology>,
+    payload: Array<IFortune>,
+}
+
+interface ICurrentAlmanacActioin extends Action {
+    type: CurrentType.UPDATE_ALMANAC,
+    payload: IAlmanac,
 }
 
 export type CurrentAction = ICurrentDateTimeAction
                             | ICurrentWITAction
                             | ICurrentWeatherAction
                             | ICurrentTrafficAction
-                            | ICurrentAstrologyAction;
+                            | ICurrentAstrologyAction
+                            | ICurrentAlmanacActioin;
 
 interface ICurrentActionCreator {
     updateNowDate(): ICurrentDateTimeAction,
-    updateWhatIsToday(value: string): ICurrentWITAction,
+    updateWhatIsToday(value: IWIT): ICurrentWITAction,
     updateWeather(value: IWeather): ICurrentWeatherAction,
     updateTraffic(value: Array<ITraffic>): ICurrentTrafficAction,
-    updateAstrology(value: Array<IAstrology>): ICurrentAstrologyAction,
+    updateAstrology(value: Array<IFortune>): ICurrentAstrologyAction,
+    updateAlmanac(value: IAlmanac): ICurrentAlmanacActioin,
 }
 
 
@@ -53,7 +67,7 @@ class CurrentActionCreator implements ICurrentActionCreator {
         type: CurrentType.UPDATE_DATETIME,
     });
 
-    public updateWhatIsToday = (value: string): ICurrentWITAction => ({
+    public updateWhatIsToday = (value: IWIT): ICurrentWITAction => ({
         type: CurrentType.UPDATE_WHATISTODAY,
         payload: value,
     });
@@ -68,8 +82,13 @@ class CurrentActionCreator implements ICurrentActionCreator {
         payload: value,
     });
 
-    public updateAstrology = (value: Array<IAstrology>):ICurrentAstrologyAction => ({
+    public updateAstrology = (value: Array<IFortune>):ICurrentAstrologyAction => ({
         type: CurrentType.UPDATE_ASTROLOGY,
+        payload: value,
+    });
+
+    public updateAlmanac = (value: IAlmanac): ICurrentAlmanacActioin => ({
+        type: CurrentType.UPDATE_ALMANAC,
         payload: value,
     });
 }

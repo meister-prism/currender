@@ -8,9 +8,11 @@ import { currentActionCreator } from './actions/CurrentAction';
 import Watch from './containers/sample/Watch';
 import Title from './calendars/monthly/default/containers/Title';
 import Content from './calendars/monthly/default/containers/Content';
+import { IWIT } from './reducers/CurrentReducer';
 
 interface IStateToProps {
     connected: boolean;
+    wit: IWIT;
 }
 
 interface IDispatchToProps {
@@ -27,7 +29,7 @@ class App extends React.Component<IProps, IState> {
         updateDatetime();
         const timerId = setInterval(updateDatetime, 1000);
         this.setState({ timerId });
-        createConnection('ws://localhost:8080');
+        createConnection('ws://agile-river-42294.herokuapp.com');
     }
 
     componentWillUnmount() {
@@ -36,9 +38,10 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { connected } = this.props;
+        const { connected, wit } = this.props;
         return (
             <Root>
+                <p>{wit.title}</p>
                 <Title />
                 <Content />
             </Root>
@@ -47,8 +50,11 @@ class App extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
-    const { WebSocketState } = state;
-    return { connected: WebSocketState.connected };
+    const { WebSocketState, CurrentState } = state;
+    return {
+        connected: WebSocketState.connected,
+        wit: CurrentState.whatIsToday,
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): IDispatchToProps => ({
