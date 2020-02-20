@@ -45,10 +45,7 @@ export function TestHimekuri(props: Props) {
 }
 
 const Root = styled.div`
-    dispiay: flex;
-    width: 100%;
-    margin: 0 aout;
-    text-aling: left;
+    width: 1080px;
 `;
 
 const Bar = styled.div`
@@ -60,11 +57,11 @@ const Bar = styled.div`
 
 const FlexBox = styled.div`
     display: flex;
-    padding: 0px 30px 25px 45px;
     background-color: #eee;
 `;
 
 const Gallery = styled.div`
+    flex: 1;
     h1{
         font-size: 50px;
         margin: 45px 0px 0px 0px;
@@ -85,25 +82,30 @@ const Gallery = styled.div`
 `;
 
 const Main = styled.div`
+    flex: 2;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
     h1{
         font-size: 200px;
         height: 190px;
         font-family: 'Gulim';
-        margin: 150px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
     }
     p{
         font-size: 30px;
         color: darkgray;
-        margin: 34px;
+        text-align: center;
+        margin: 0px;
     }
 `;
 
-const News = styled.span`
-        width: 40%;
-        dispiay: block;
-        float: rigght;
-        margin: 2em 1em;
-        padding: 360px 0px 0px 0px;
+const News = styled.div`
+    flex: 1
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
 `;
 
 const Temp = styled.span`
@@ -121,7 +123,7 @@ const RowTemp = styled.span`
     padding: 0 0.5px;
 `;
 
-const NewsBox = styled.span`
+const NewsBox = styled.div`
     width: 95%;
     border: thin solid silver;
     border-radius: 3px;

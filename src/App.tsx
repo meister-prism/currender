@@ -24,9 +24,7 @@ class App extends React.Component<IProps, {}> {
     render() {
         const { connected } = this.props;
         return (
-            <div>
-                <TestHimekuri title="04" />
-            </div>
+            <TestHimekuri title="04" />
         );
     }
 }
