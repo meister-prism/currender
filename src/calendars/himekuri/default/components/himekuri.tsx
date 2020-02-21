@@ -48,7 +48,7 @@ export function TestHimekuri(props: Props) {
 
 const Root = styled.div`
     width: 1080px;
-    height: 800px;
+    height: 900px;
     background-color: tomato;
 `;
 
