@@ -5,7 +5,7 @@ import queryString from 'query-string';
 
 interface IState {
     isLogin: boolean,
-    API_KEY?: string,
+    API_KEY: string,
     CLIENT_ID: string,
     DISCOVERY_DOCS: Array<string>,
     SCOPES: string,
@@ -21,13 +21,23 @@ export class GoogleApi extends React.Component<RouteComponentProps, IState> {
         const CODE = query.code as (string | undefined);
         this.state = {
             isLogin: (CODE !== undefined),
-            API_KEY: process.env.REACT_APP_GOOGLE_API_KEY,
-            CLIENT_ID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+            API_KEY: process.env.REACT_APP_GOOGLE_API_KEY || '',
+            CLIENT_ID: process.env.REACT_APP_GOOGLE_CLIENT_ID || '',
             DISCOVERY_DOCS: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
             REDIRECT_URL: 'https://test2.sun-yryr.com/redirect',
             SCOPES: 'profile',
             CODE,
         };
+        window.gapi.load('client:oauth2', () => {
+            window.gapi.client.init({
+                apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+                clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+                scope: 'profile',
+            }).then(() => {
+                return window.gapi.client.
+            })
+        });
     }
 
     getAuthUrl(): string {
