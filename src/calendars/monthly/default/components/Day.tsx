@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import moment from 'moment';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
 
@@ -12,7 +12,8 @@ function getAllDay(start: string, end: string) {
     if (start === end) {
         return 'allDay';
     }
-    return start;
+    console.log(moment(start).format('YYYY-MM-DD'));
+    return moment(start).format('YYYY-MM-DD');
 }
 export function Day(props: Props): JSX.Element {
     const { date, schedules } = props;
@@ -56,15 +57,20 @@ const List = styled.li<{ checkDay: string, date: string }>`
     line-height: 1.5;
     padding: 0.5em;
     list-style-type: none!important;
-    margin:  ${({ checkDay, date }) => {
-        let margin = (checkDay === 'allDay') ? '0 0 3px 10px;' : '0 0 3px 0';
-        margin = (checkDay === date) ? ' 0 0 3px 5px;' : margin;
-        return margin;
-    }}}
+    ${({ checkDay }) => (checkDay === 'allDay' ? css`
+        border-left: solid 6px #2d8fdd;
+    ` : css`
+        background: #f1f8ff;
+    `)}
+    ${({ checkDay, date }) => (checkDay === date || checkDay === 'allDay' ? css`
+        margin: 0 0 3px 10px;
+    ` : css`
+        margin: 0 0 3px 0;
+        text-indent: 120%;
+        white-space:nowrap;
+        overflow:hidden;
+    `)} 
+    
     color: #2d8fdd;
-    background: #f1f8ff;
-    border-left: ${({ checkDay }) => {
-        const allDay = (checkDay === 'allDay') ? 'solid 6px #2d8fdd;' : 'none';
-        return allDay;
-    }}}
+
 `;
