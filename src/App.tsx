@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import styled from 'styled-components';
 import { RootState } from './reducers';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import { IWIT } from './reducers/CurrentReducer';
 import MonthlyCalendar from './calendars/monthly/default';
+import GoogleApi from './googleCalendarApi';
 
 interface IStateToProps {
     connected: boolean;
@@ -39,7 +41,10 @@ class App extends React.Component<IProps, IState> {
         const { connected, wit } = this.props;
         return (
             <Root>
-                <MonthlyCalendar />
+                <BrowserRouter>
+                    <Route component={GoogleApi} />
+                    <MonthlyCalendar />
+                </BrowserRouter>
             </Root>
         );
     }

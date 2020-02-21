@@ -8,5 +8,6 @@
         "typescriptreact"
     ],
     "eslint.enable": true,
-    "codic.case": "camelCase"
+    "codic.case": "camelCase",
+    "files.eol": "\n"
 }
