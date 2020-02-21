@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import logo from '../../../../assets/sun.png';
 
 // このファイルのみで使うので export しない
 interface Props {
@@ -18,7 +19,7 @@ export function TestHimekuri(props: Props) {
                     <h1>04</h1>
                     <p>April</p>
                     <h2>レポート締め切り</h2>
-                    <h3>14:00-15:00 ミーティング</h3>
+                    <h3>14:00-15:00 ミーティング 18:00-19:00 ミーティング</h3>
                 </Gallery>
                 <Main>
                     <h1>2</h1>
@@ -26,6 +27,7 @@ export function TestHimekuri(props: Props) {
                 </Main>
                 <News>
                     <Temp>
+                        <img src={String(logo)} alt="weather" style={{ width: '70px' }} />
                         <HighTemp>20</HighTemp>
                         /
                         <RowTemp>16</RowTemp>
@@ -46,6 +48,8 @@ export function TestHimekuri(props: Props) {
 
 const Root = styled.div`
     width: 1080px;
+    height: 800px;
+    background-color: tomato;
 `;
 
 const Bar = styled.div`
@@ -58,43 +62,47 @@ const Bar = styled.div`
 const FlexBox = styled.div`
     display: flex;
     background-color: #eee;
+    height: 100%;
 `;
 
 const Gallery = styled.div`
-    flex: 1;
+    flex: 1.5;
     h1{
-        font-size: 50px;
-        margin: 45px 0px 0px 0px;
+        font-size: 90px;
+        margin: 45px 0px 0px 90px;
+        height: 95px;
+        
     }
     p{
-        font-size: 25px;
+        font-size: 45px;
         font-weight: 800;
-        margin: 0px 0px 90px 0px;
+        margin: 0px 0px 90px 90px;
     }
     h2{
-        font-size: 20px;
-        margin: 0px 0px 100px 0px;
+        font-size: 30px;
+        margin: 0px 0px 100px 90px;
     }
     h3{
-        font-size: 14px;
+        font-size: 20px;
         font-weight: 200;
+        margin: 0px 0px 0px 90px;
     }
 `;
 
 const Main = styled.div`
-    flex: 2;
+    flex: 1.5;
     display: flex;
     flex-flow: column;
     justify-content: center;
     h1{
-        font-size: 200px;
-        height: 190px;
+        font-size: 300px;
+        height: 350px;
         font-family: 'Gulim';
         text-align: center;
         margin: 0px;
     }
     p{
-        font-size: 30px;
+        font-size: 60px;
         color: darkgray;
         text-align: center;
         margin: 0px;
@@ -102,15 +110,19 @@ const Main = styled.div`
 `;
 
 const News = styled.div`
-    flex: 1
+    font-size: 25px;
+    flex: 1.5;
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
 `;
 
 const Temp = styled.span`
-    font-size: 30px;
+    font-size: 45px;
     padding: 5px 0;
+    img{
+        padding: 0 10px 0 0;
+    }
 `;
 
 const HighTemp = styled.span`
@@ -130,5 +142,5 @@ const NewsBox = styled.div`
     margin: 0 0 1em;
     padding: 0 5px;
     display: block;
-    font-size: 10px;
+    font-size: 15px;
 `;
