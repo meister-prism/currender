@@ -2,7 +2,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
 
 interface tmpCal {
@@ -12,10 +12,11 @@ interface tmpCal {
 
 interface Props {
     calendar: Array<tmpCal>,
+    cColor: Array<calendarColor>,
 }
 
 export function Content(props: Props): JSX.Element {
-    const { calendar } = props;
+    const { calendar, cColor } = props;
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const rows = calendar.length > 35 ? 6 : 5;
     return (
@@ -33,6 +34,7 @@ export function Content(props: Props): JSX.Element {
                             <DayComponent
                                 date={value.date}
                                 schedules={value.schedules}
+                                cColor={cColor}
                             />
                         </GridItem>
                     );

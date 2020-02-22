@@ -2,21 +2,27 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 
 interface Props {
     date: string,
     schedules: Array<CalendarEvent>,
+    cColor: Array<calendarColor>,
 }
+
 function getAllDay(start: string, end: string) {
     if (start === end) {
         return 'allDay';
     }
-    console.log(moment(start).format('YYYY-MM-DD'));
     return moment(start).format('YYYY-MM-DD');
 }
+function colorJudge(name: string, cColor: Array<calendarColor>) {
+    const found = cColor.findIndex((element) => (element.name === name));
+    return cColor[found].color;
+}
+
 export function Day(props: Props): JSX.Element {
-    const { date, schedules } = props;
+    const { date, schedules, cColor } = props;
     const weekday = moment(date).format('d');
     const day = moment(date).format('D');
     const A = (
@@ -24,7 +30,7 @@ export function Day(props: Props): JSX.Element {
             <div>
                 <P1 weekday={Number(weekday)}>{day}</P1>
                 {schedules.map((s, index) => (
-                    <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)}>{s.title}</List>
+                    <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
                 ))}
             </div>
         </Root>
@@ -52,15 +58,15 @@ const P1 = styled.p<{ weekday: number }>`
         return tmpColor;
     }}}
 `;
-const List = styled.li<{ checkDay: string, date: string }>`
+const List = styled.li<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor> }>`
     margin-bottom: 3px;
     line-height: 1.5;
     padding: 0.5em;
     list-style-type: none!important;
-    ${({ checkDay }) => (checkDay === 'allDay' ? css`
-        border-left: solid 6px #2d8fdd;
+    ${({ checkDay, name, cColor }) => (checkDay === 'allDay' ? css`
+        border-left: solid 6px ${colorJudge(name, cColor)};
     ` : css`
-        background: #f1f8ff;
+        background: ${colorJudge(name, cColor)};
     `)}
     ${({ checkDay, date }) => (checkDay === date || checkDay === 'allDay' ? css`
         margin: 0 0 3px 10px;
@@ -71,6 +77,6 @@ const List = styled.li<{ checkDay: string, date: string }>`
         overflow:hidden;
     `)} 
     
-    color: #2d8fdd;
+    color: #4f5254;
 
 `;

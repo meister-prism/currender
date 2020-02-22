@@ -2,16 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { RootState } from '../../../../reducers';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Content as ContentComponent } from '../components/Content';
 
 interface calendarTmp {
     [key: string]: Array<CalendarEvent>,
-}
-
-interface calendarColor {
-    name: string,
-    color: string,
 }
 
 interface IStateToProps {
@@ -64,7 +59,9 @@ const generateDayList = (now: moment.Moment): Array<string> => {
 
 class Content extends React.Component<IStateToProps, {}> {
     render() {
-        const { nowMonth, nowYear, Calendar } = this.props;
+        const {
+            nowMonth, nowYear, Calendar, cColor,
+        } = this.props;
         const strMonth = `0${nowMonth}`.slice(-2);
         const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
         const DayList = generateDayList(tmpMoment);
@@ -78,13 +75,24 @@ class Content extends React.Component<IStateToProps, {}> {
         return (
             <ContentComponent
                 calendar={calendarData}
+                cColor={cColor}
             />
         );
     }
 }
 
 const mapStateToProps = (state: RootState): IStateToProps => {
-    const { CalendarState, CurrentState, cColor } = state;
+    const { CalendarState, CurrentState } = state;
+    const cColor = [
+        {
+            name: 'Taiyo Minagawa',
+            color: '#b0dffb',
+        },
+        {
+            name: 'Ryo Tabata',
+            color: '#f09300',
+        },
+    ];
     const nowMonth = CurrentState.nowDateTime.month() + 1;
     const nowYear = CurrentState.nowDateTime.year();
     return {

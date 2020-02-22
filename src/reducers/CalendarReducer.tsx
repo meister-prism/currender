@@ -10,6 +10,11 @@ export interface CalendarEvent {
     calendarName: string,
 }
 
+export interface calendarColor {
+    name: string,
+    color: string,
+}
+
 export interface ICalendarState {
     schedules: { [key: string]: Array<CalendarEvent> }
 }
@@ -37,7 +42,7 @@ const initState: ICalendarState = {
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-01'),
                 endSchedule: moment('2020-02-01'),
-                calendarName: 'Taiyo Minagawa',
+                calendarName: 'Ryo Tabata',
             },
         ],
         '2020-02-05': [
