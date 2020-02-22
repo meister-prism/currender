@@ -7,6 +7,5 @@
         "typescript",
         "typescriptreact"
     ],
-    "eslint.enable": true,
-    "codic.case": "camelCase"
+    "eslint.enable": true
 }
