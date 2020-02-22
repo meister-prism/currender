@@ -10,6 +10,11 @@ export interface CalendarEvent {
     calendarName: string,
 }
 
+export interface calendarColor {
+    name: string,
+    color: string,
+}
+
 export interface ICalendarState {
     schedules: { [key: string]: Array<CalendarEvent> }
 }
@@ -21,7 +26,7 @@ const initState: ICalendarState = {
                 title: 'testTitle',
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-04'),
-                endSchedule: moment('2020-02-04'),
+                endSchedule: moment('2020-02-05'),
                 calendarName: 'Taiyo Minagawa',
             },
         ],
@@ -37,7 +42,46 @@ const initState: ICalendarState = {
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-01'),
                 endSchedule: moment('2020-02-01'),
+                calendarName: 'Ryo Tabata',
+            },
+        ],
+        '2020-02-05': [
+            {
+                title: 'testTitle',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-04'),
+                endSchedule: moment('2020-02-05'),
                 calendarName: 'Taiyo Minagawa',
+            },
+            {
+                title: 'testTitle7',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-05'),
+                endSchedule: moment('2020-02-05'),
+                calendarName: 'Taiyo Minagawa',
+            },
+            {
+                title: 'testTitle5',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-05'),
+                endSchedule: moment('2020-02-06'),
+                calendarName: 'Ryo Tabata',
+            },
+        ],
+        '2020-02-06': [
+            {
+                title: 'testTitle7',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-06'),
+                endSchedule: moment('2020-02-06'),
+                calendarName: 'Taiyo Minagawa',
+            },
+            {
+                title: 'testTitle5',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-05'),
+                endSchedule: moment('2020-02-06'),
+                calendarName: 'Ryo Tabata',
             },
         ],
     },

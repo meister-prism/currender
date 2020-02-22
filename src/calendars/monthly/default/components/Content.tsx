@@ -3,14 +3,19 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+import moment from 'moment';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
 
 Modal.setAppElement('#root');
 
+interface sortCalendar extends CalendarEvent {
+    index: number,
+}
+
 interface tmpCal {
     date: string,
-    schedules: Array<CalendarEvent>,
+    schedules: Array<sortCalendar>,
 }
 
 interface Props {
@@ -18,6 +23,7 @@ interface Props {
     isOpen: boolean,
     toggleModal: any,
     modalIndex: number,
+    cColor: Array<calendarColor>,
 }
 
 export function Content(props: Props): JSX.Element {
@@ -26,8 +32,8 @@ export function Content(props: Props): JSX.Element {
         isOpen,
         toggleModal,
         modalIndex,
+        cColor,
     } = props;
-
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const rows = calendar.length > 35 ? 6 : 5;
     return (
@@ -60,6 +66,7 @@ export function Content(props: Props): JSX.Element {
                             <DayComponent
                                 date={value.date}
                                 schedules={value.schedules}
+                                cColor={cColor}
                             />
                         </GridItem>
                     );

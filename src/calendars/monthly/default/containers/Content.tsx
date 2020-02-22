@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { RootState } from '../../../../reducers';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Content as ContentComponent } from '../components/Content';
 
 interface calendarTmp {
@@ -13,6 +13,7 @@ interface IStateToProps {
     nowMonth: number,
     nowYear: number,
     Calendar: calendarTmp,
+    cColor: Array<calendarColor>,
 }
 
 interface IState {
@@ -87,24 +88,56 @@ class Content extends React.Component<IStateToProps, IState> {
     }
 
     render() {
-        const { nowMonth, nowYear, Calendar } = this.props;
+        const {
+            nowMonth, nowYear, Calendar, cColor,
+        } = this.props;
         const { isModalOpen, currentModal } = this.state;
         const strMonth = `0${nowMonth}`.slice(-2);
         const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
         const DayList = generateDayList(tmpMoment);
         const calendarData = DayList.map((value) => {
             const schedules = Calendar[value] !== undefined ? Calendar[value] : [];
+            schedules.sort((a, b) => (a.startSchedule >= b.startSchedule ? 1 : -1));
+            const T = schedules.map((S, index) => ({
+                ...S,
+                index,
+            }));
             return {
                 date: value,
-                schedules,
+                schedules: T,
             };
         });
+        let id = 0;
+        for (let i = 1; i < calendarData.length; i += 1) {
+            if (calendarData[i].schedules !== []) {
+                id = 0;
+                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
+                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) === moment(calendarData[i].schedules[j].endSchedule).format(('YYYY-MM-DD'))) {
+                        calendarData[i].schedules[j].index = j + 100;
+                    } else {
+                        calendarData[i].schedules[j].index = j;
+                    }
+                }
+                calendarData[i].schedules.sort((a, b) => (a.index > b.index ? 1 : -1));
+                console.log(calendarData);
+                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
+                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) !== calendarData[i].date) {
+                        const indexSearch = calendarData[i - 1].schedules.findIndex((element) => element.title === calendarData[i].schedules[j].title);
+                        calendarData[i].schedules[j].index = indexSearch;
+                        id = indexSearch;
+                    } else {
+                        calendarData[i].schedules[j].index = id + j;
+                    }
+                }
+            }
+        }
         return (
             <ContentComponent
                 calendar={calendarData}
                 isOpen={isModalOpen}
                 toggleModal={this.toggleModal}
                 modalIndex={currentModal}
+                cColor={cColor}
             />
         );
     }
@@ -112,12 +145,23 @@ class Content extends React.Component<IStateToProps, IState> {
 
 const mapStateToProps = (state: RootState): IStateToProps => {
     const { CalendarState, CurrentState } = state;
+    const cColor = [
+        {
+            name: 'Taiyo Minagawa',
+            color: '#b0dffb',
+        },
+        {
+            name: 'Ryo Tabata',
+            color: '#f09300',
+        },
+    ];
     const nowMonth = CurrentState.nowDateTime.month() + 1;
     const nowYear = CurrentState.nowDateTime.year();
     return {
         nowMonth,
         nowYear,
         Calendar: CalendarState.schedules,
+        cColor,
     };
 };
 
