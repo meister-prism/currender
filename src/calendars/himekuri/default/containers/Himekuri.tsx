@@ -2,7 +2,9 @@ import * as React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../reducers';
-import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
+import {
+    IWeather, ITraffic, IFortune, IWIT,
+} from '../../../../reducers/CurrentReducer';
 import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Himekuri as HimekuriComponent } from '../components/Himekuri';
 
@@ -15,6 +17,7 @@ interface IStateToProps {
     Weather: IWeather,
     Traffic: Array<ITraffic>,
     Fortunes: Array<IFortune>,
+    WhatIsToday: IWIT,
     Calendar: calendarTmp,
     cColor: Array<calendarColor>,
 }
@@ -34,6 +37,7 @@ class Himekuri extends React.Component<IProps, {}> {
             Fortunes,
             cColor,
             Calendar,
+            WhatIsToday,
         } = this.props;
         const Moment: moment.Moment = moment(date);
         const schedules = Calendar[date] !== undefined ? Calendar[date] : [];
@@ -44,6 +48,7 @@ class Himekuri extends React.Component<IProps, {}> {
                 Weather={Weather}
                 Traffic={Traffic[0]}
                 Fortune={Fortunes[0]}
+                WhatIsToday={WhatIsToday}
                 cColor={cColor}
                 schedules={schedules}
             />
@@ -59,6 +64,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
             weather,
             traffic,
             fortune,
+            whatIsToday,
         },
         CalendarState,
     } = state;
@@ -77,6 +83,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
         Weather: weather,
         Traffic: traffic,
         Fortunes: fortune,
+        WhatIsToday: whatIsToday,
         Calendar: CalendarState.schedules,
         cColor,
     };
