@@ -52,11 +52,11 @@ export function Himekuri(props: Props) {
                             </h2>
                         ) : null
                     }
-                    {allDay.map((s: any, index: any) => (
-                        <ListAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListAllDay>
+                    {allDay.map((s: any) => (
+                        <ListAllDay name={s.calendarName} cColor={cColor}>{s.title}</ListAllDay>
                     ))}
-                    {NotAllDay.map((s: any, index: any) => (
-                        <ListNotAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListNotAllDay>
+                    {NotAllDay.map((s: any) => (
+                        <ListNotAllDay name={s.calendarName} cColor={cColor}>{s.title}</ListNotAllDay>
                     ))}
 
                 </Gallery>
