@@ -1,8 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import styled, { CSSProperties } from 'styled-components';
-import moment, { RFC_2822 } from 'moment';
+import styled from 'styled-components';
 import Modal from 'react-modal';
 import { CalendarEvent } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
