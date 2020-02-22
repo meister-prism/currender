@@ -10,7 +10,7 @@ interface IStateToProps {
     Date: string,
     Weather: IWeather,
     Traffic: Array<ITraffic>,
-    Astrology: Array<IFortune>,
+    Fortunes: Array<IFortune>,
 }
 
 type IProps = IStateToProps;
@@ -25,7 +25,7 @@ class Title extends React.Component<IProps, {}> {
             Date,
             Weather,
             Traffic,
-            Astrology,
+            Fortunes,
         } = this.props;
         const Moment: moment.Moment = moment(Date);
         return (
@@ -34,7 +34,7 @@ class Title extends React.Component<IProps, {}> {
                 MonthName={Moment.format('MMMM')}
                 Weather={Weather}
                 Traffic={Traffic[0]}
-                Astrology={Astrology[0]}
+                Fortune={Fortunes[0]}
             />
         );
     }
@@ -54,7 +54,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
         Date: nowDateTime.format('YYYY-MM-DD'),
         Weather: weather,
         Traffic: traffic,
-        Astrology: fortune,
+        Fortunes: fortune,
     };
 };
 

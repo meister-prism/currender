@@ -46,7 +46,7 @@ export function Content(props: Props): JSX.Element {
 
 const Root = styled.div`
     width: 97%;
-    height: 83%;
+    height: 75%;
     margin: auto;
 `;
 

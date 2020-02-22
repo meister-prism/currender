@@ -8,7 +8,7 @@ interface Props {
     MonthName: string,
     Weather: IWeather,
     Traffic: ITraffic,
-    Astrology: IFortune,
+    Fortune: IFortune,
 }
 
 const Bar = styled.div`
@@ -20,6 +20,7 @@ const Bar = styled.div`
 
 const Root = styled.div`
     width: 100%
+    height: 25%
     margin: 0 auto
     text-align: left
 `;
@@ -82,7 +83,7 @@ export function Title(props: Props): JSX.Element {
         MonthName,
         Weather,
         Traffic,
-        Astrology,
+        Fortune,
     } = props;
     return (
         <Root>
@@ -115,9 +116,9 @@ export function Title(props: Props): JSX.Element {
                 ) : null}
                 <NewsBox>
                     <span>【占い】</span>
-                    <span>{Astrology.constellation}</span>
+                    <span>{Fortune.constellation}</span>
                     <br />
-                    <NewsText>{Astrology.message}</NewsText>
+                    <NewsText>{Fortune.message}</NewsText>
                 </NewsBox>
             </News>
         </Root>
