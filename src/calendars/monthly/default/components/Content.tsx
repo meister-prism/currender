@@ -4,7 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import moment from 'moment';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
 
 Modal.setAppElement('#root');
