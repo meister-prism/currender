@@ -12,6 +12,7 @@ import MonthlyCalendar from './calendars/monthly/default';
 interface IStateToProps {
     connected: boolean;
     wit: IWIT;
+    CurrenderTypeFlag: boolean;
 }
 
 interface IDispatchToProps {
@@ -20,27 +21,36 @@ interface IDispatchToProps {
 }
 
 type IProps = IStateToProps & IDispatchToProps;
-type IState = { timerId: number }
+type IState = { timerId: number, CurrenderTypeFlag: boolean }
 
 class App extends React.Component<IProps, IState> {
     componentDidMount() {
         const { createConnection, updateDatetime } = this.props;
         updateDatetime();
         const timerId = setInterval(updateDatetime, 1000);
-        this.setState({ timerId });
+        const CurrenderTypeFlag = true;
+        this.setState({ timerId, CurrenderTypeFlag });
         createConnection('ws://agile-river-42294.herokuapp.com');
     }
 
     componentWillUnmount() {
         const { timerId } = this.state;
         clearInterval(timerId);
+        // this.setState({ CurrenderTypeFlag: !CurrenderTypeFlag });
+    }
+
+    changeFlag() {
+        const { CurrenderTypeFlag } = this.state;
+        this.setState({ CurrenderTypeFlag });
     }
 
     render() {
-        const { connected, wit } = this.props;
+        const { connected, wit, CurrenderTypeFlag } = this.props;
         return (
             <Root>
-                <TestHimekuri title="04" />
+                <input onClick={this.changeFlag} value="日めくり" name="" type="button" />
+                {CurrenderTypeFlag && <MonthlyCalendar /> }
+                {/* <TestHimekuri title="04" /> */}
             </Root>
         );
     }
@@ -51,6 +61,7 @@ const mapStateToProps = (state: RootState): IStateToProps => {
     return {
         connected: WebSocketState.connected,
         wit: CurrentState.whatIsToday,
+        CurrenderTypeFlag: true,
     };
 };
 
