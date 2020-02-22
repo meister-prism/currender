@@ -67,8 +67,7 @@ class Content extends React.Component<IStateToProps, {}> {
         const DayList = generateDayList(tmpMoment);
         const calendarData = DayList.map((value) => {
             const schedules = Calendar[value] !== undefined ? Calendar[value] : [];
-            const sortedArray = schedules.sort((a, b) => (a.startSchedule > b.startSchedule ? 1 : -1));
-            console.log(sortedArray);
+            schedules.sort((a, b) => (a.startSchedule >= b.startSchedule ? 1 : -1));
             return {
                 date: value,
                 schedules,

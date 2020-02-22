@@ -54,6 +54,13 @@ const initState: ICalendarState = {
                 calendarName: 'Taiyo Minagawa',
             },
             {
+                title: 'testTitle7',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-05'),
+                endSchedule: moment('2020-02-05'),
+                calendarName: 'Taiyo Minagawa',
+            },
+            {
                 title: 'testTitle5',
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-05'),
@@ -63,18 +70,18 @@ const initState: ICalendarState = {
         ],
         '2020-02-06': [
             {
-                title: 'testTitle5',
-                description: 'by sun-yryr',
-                startSchedule: moment('2020-02-05'),
-                endSchedule: moment('2020-02-06'),
-                calendarName: 'Ryo Tabata',
-            },
-            {
                 title: 'testTitle7',
                 description: 'by sun-yryr',
                 startSchedule: moment('2020-02-06'),
                 endSchedule: moment('2020-02-06'),
                 calendarName: 'Taiyo Minagawa',
+            },
+            {
+                title: 'testTitle5',
+                description: 'by sun-yryr',
+                startSchedule: moment('2020-02-05'),
+                endSchedule: moment('2020-02-06'),
+                calendarName: 'Ryo Tabata',
             },
         ],
     },

@@ -25,13 +25,21 @@ export function Day(props: Props): JSX.Element {
     const { date, schedules, cColor } = props;
     const weekday = moment(date).format('d');
     const day = moment(date).format('D');
+    const divisionAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) !== 'allDay'));
+    const divisionNotAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) === 'allDay'));
+    console.log(divisionAll);
     const A = (
         <Root>
             <div>
                 <P1 weekday={Number(weekday)}>{day}</P1>
-                {schedules.map((s, index) => (
-                    <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
-                ))}
+                <Grid rows={schedules.length}>
+                    {divisionAll.map((s: any, index: any) => (
+                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
+                    ))}
+                    {divisionNotAll.map((s: any, index: any) => (
+                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
+                    ))}
+                </Grid>
             </div>
         </Root>
     );
@@ -58,7 +66,7 @@ const P1 = styled.p<{ weekday: number }>`
         return tmpColor;
     }}}
 `;
-const List = styled.li<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor> }>`
+const List = styled.div<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor> }>`
     margin-bottom: 3px;
     line-height: 1.5;
     padding: 0.5em;
@@ -67,16 +75,23 @@ const List = styled.li<{ checkDay: string, date: string, name: string, cColor: A
         border-left: solid 6px ${colorJudge(name, cColor)};
     ` : css`
         background: ${colorJudge(name, cColor)};
-        border-radius:5px;
     `)}
     ${({ checkDay, date }) => (checkDay === date || checkDay === 'allDay' ? css`
         margin: 0 0 3px 10px;
+        border-radius:5px 0 0 5px;
     ` : css`
         margin: 0 0 3px 0;
         text-indent: 120%;
         white-space:nowrap;
         overflow:hidden;
+        border-radius:0 5px 5px 0;
     `)} 
     color: #4f5254;
 
+`;
+
+const Grid = styled.div<{ rows: number }>`
+    display: grid;
+    width: 100%;
+    grid-template-rows: ${({ rows }) => `40px repeat(${rows}, 1fr)`};
 `;
