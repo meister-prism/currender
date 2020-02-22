@@ -36,11 +36,11 @@ export function Day(props: Props): JSX.Element {
             <div>
                 <P1 weekday={Number(weekday)}>{day}</P1>
                 <Grid rows={schedules.length}>
-                    {divisionAll.map((s: any, index: any) => (
-                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
+                    {divisionAll.map((s: any) => (
+                        <List checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
                     ))}
-                    {divisionNotAll.map((s: any, index: any) => (
-                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
+                    {divisionNotAll.map((s: any) => (
+                        <List checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
                     ))}
                 </Grid>
             </div>

@@ -34,7 +34,6 @@ export function Himekuri(props: Props) {
     const weekday = moment(Date).format('d');
     const allDay = schedules.filter((s) => s.endSchedule.isSame(s.startSchedule));
     const NotAllDay = schedules.filter((s) => !s.endSchedule.isSame(s.startSchedule));
-    console.log(schedules);
     return (
         <Root>
             <Bar />
