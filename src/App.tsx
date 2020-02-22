@@ -4,6 +4,7 @@ import { Dispatch, Action } from 'redux';
 import styled from 'styled-components';
 import { RootState } from './reducers';
 import { webSocketActionCreator } from './actions/WebSocketAction';
+import Himekuri from './calendars/himekuri/default/containers/Himekuri';
 import { currentActionCreator } from './actions/CurrentAction';
 import { IWIT } from './reducers/CurrentReducer';
 import MonthlyCalendar from './calendars/monthly/default';
@@ -39,7 +40,7 @@ class App extends React.Component<IProps, IState> {
         const { connected, wit } = this.props;
         return (
             <Root>
-                <MonthlyCalendar />
+                <Himekuri />
             </Root>
         );
     }

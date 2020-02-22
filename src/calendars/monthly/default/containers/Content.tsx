@@ -119,7 +119,6 @@ class Content extends React.Component<IStateToProps, IState> {
                     }
                 }
                 calendarData[i].schedules.sort((a, b) => (a.index > b.index ? 1 : -1));
-                console.log(calendarData);
                 for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
                     if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) !== calendarData[i].date) {
                         const indexSearch = calendarData[i - 1].schedules.findIndex((element) => element.title === calendarData[i].schedules[j].title);
