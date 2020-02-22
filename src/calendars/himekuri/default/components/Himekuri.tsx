@@ -1,9 +1,10 @@
-/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import logo from '../../../../assets/sun.png';
-import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
+import {
+    IWeather, ITraffic, IFortune, IWIT,
+} from '../../../../reducers/CurrentReducer';
 import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
     Weather: IWeather,
     Traffic: ITraffic,
     Fortune: IFortune,
+    WhatIsToday: IWIT,
     schedules: Array<CalendarEvent>,
     cColor: Array<calendarColor>,
 }
@@ -29,6 +31,7 @@ export function Himekuri(props: Props) {
         Fortune,
         Date,
         schedules,
+        WhatIsToday,
         cColor,
     } = props;
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -49,11 +52,11 @@ export function Himekuri(props: Props) {
                             </h2>
                         ) : null
                     }
-                    {allDay.map((s: any, index: any) => (
-                        <ListAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListAllDay>
+                    {allDay.map((s: any) => (
+                        <ListAllDay name={s.calendarName} cColor={cColor}>{s.title}</ListAllDay>
                     ))}
-                    {NotAllDay.map((s: any, index: any) => (
-                        <ListNotAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListNotAllDay>
+                    {NotAllDay.map((s: any) => (
+                        <ListNotAllDay name={s.calendarName} cColor={cColor}>{s.title}</ListNotAllDay>
                     ))}
 
                 </Gallery>
@@ -80,7 +83,9 @@ export function Himekuri(props: Props) {
 
                     </Temp>
 
-                    <p>今日はCO₂の日です．息を吸いましょう．</p>
+                    <p>
+                        {WhatIsToday.title}
+                    </p>
                     {(Traffic !== undefined) ? (
                         <NewsBox>
                             <span>【遅延情報】</span>

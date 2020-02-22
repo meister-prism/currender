@@ -1,7 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../../../../assets/sun.png';
-import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
+import {
+    IWeather, ITraffic, IFortune, IWIT,
+} from '../../../../reducers/CurrentReducer';
 
 interface Props {
     Month: string,
@@ -9,6 +11,7 @@ interface Props {
     Weather: IWeather,
     Traffic: ITraffic,
     Fortune: IFortune,
+    WhatIsToday: IWIT,
 }
 
 const Bar = styled.div`
@@ -84,6 +87,7 @@ export function Title(props: Props): JSX.Element {
         Weather,
         Traffic,
         Fortune,
+        WhatIsToday,
     } = props;
     return (
         <Root>
@@ -103,7 +107,7 @@ export function Title(props: Props): JSX.Element {
                     {Weather.rainfallProbability}
                     %
                 </Temp>
-                <p>今日はCO2の日です．息を吸いましょう．</p>
+                <p>{WhatIsToday.title}</p>
                 {/* 遅延情報がない時 Traffic[0] == undefined なので応急処置しました */}
                 {(Traffic !== undefined) ? (
                     <NewsBox>
