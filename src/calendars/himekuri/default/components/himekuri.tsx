@@ -1,44 +1,100 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import logo from '../../../../assets/sun.png';
+import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 
-// このファイルのみで使うので export しない
 interface Props {
-    title: string,
+    Date: string,
+    Weather: IWeather,
+    Traffic: ITraffic,
+    Fortune: IFortune,
+    schedules: Array<CalendarEvent>,
+    cColor: Array<calendarColor>,
+}
+
+function colorJudge(name: string, cColor: Array<calendarColor>) {
+    const found = cColor.findIndex((element) => (element.name === name));
+    return cColor[found].color;
 }
 
 // こっちは export する (without default)
 // 返り値は JSX.Element だけど，推論が効くので書かなくて良い
-export function TestHimekuri(props: Props) {
-    const { title } = props;
+export function Himekuri(props: Props) {
+    const {
+        Weather,
+        Traffic,
+        Fortune,
+        Date,
+        schedules,
+        cColor,
+    } = props;
+    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const weekday = moment(Date).format('d');
+    const allDay = schedules.filter((s) => s.endSchedule.isSame(s.startSchedule));
+    const NotAllDay = schedules.filter((s) => !s.endSchedule.isSame(s.startSchedule));
+    console.log(schedules);
     return (
         <Root>
             <Bar />
             <FlexBox>
                 <Gallery>
-                    <h1>04</h1>
-                    <p>April</p>
-                    <h2>レポート締め切り</h2>
-                    <h3>14:00-15:00 ミーティング 18:00-19:00 ミーティング</h3>
+                    <h1>{moment(Date).format('M')}</h1>
+                    <p>{moment(Date).format('MMMM')}</p>
+                    {
+                        (schedules.length === 0) ? (
+                            <h2>
+                                予定なし
+                            </h2>
+                        ) : null
+                    }
+                    {allDay.map((s: any, index: any) => (
+                        <ListAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListAllDay>
+                    ))}
+                    {NotAllDay.map((s: any, index: any) => (
+                        <ListNotAllDay key={index} name={s.calendarName} cColor={cColor}>{s.title}</ListNotAllDay>
+                    ))}
+
                 </Gallery>
                 <Main>
-                    <h1>2</h1>
-                    <p>THU</p>
+                    <h1>{moment(Date).format('D')}</h1>
+                    <p>{days[Number(weekday)]}</p>
                 </Main>
                 <News>
                     <Temp>
-                        <img src={String(logo)} alt="weather" style={{ width: '70px' }} />
-                        <HighTemp>20</HighTemp>
-                        /
-                        <RowTemp>16</RowTemp>
-                        ℃
+                        <TempTitle>{Weather.title}</TempTitle>
+                        <div>
+                            <HighTemp>{Weather.temperature.max}</HighTemp>
+                            <TempText>/</TempText>
+                            <RowTemp>{Weather.temperature.min}</RowTemp>
+                            <TempText>℃</TempText>
+                        </div>
+
+                        <div>
+                            <TempText2>降水確率</TempText2>
+                            <RainTemp>
+                                {Weather.rainfallProbability}
+                            </RainTemp>
+                        </div>
+
                     </Temp>
+
                     <p>今日はCO₂の日です．息を吸いましょう．</p>
+                    {(Traffic !== undefined) ? (
+                        <NewsBox>
+                            <span>【遅延情報】</span>
+                            <span>{Traffic.line}</span>
+                            <br />
+                            <NewsText>{Traffic.serviceStatus}</NewsText>
+                            <NewsText>{Traffic.description}</NewsText>
+                        </NewsBox>
+                    ) : null}
                     <NewsBox>
-                        <p>[遅延情報]</p>
-                    </NewsBox>
-                    <NewsBox>
-                        <p>[News]</p>
+                        <span>【占い】</span>
+                        <span>{Fortune.constellation}</span>
+                        <br />
+                        <NewsText>{Fortune.message}</NewsText>
                     </NewsBox>
                 </News>
             </FlexBox>
@@ -109,6 +165,10 @@ const Main = styled.div`
     }
 `;
 
+const NewsText = styled.span`
+    margin-left: 10px
+`;
+
 const News = styled.div`
     font-size: 25px;
     flex: 1.5;
@@ -125,6 +185,10 @@ const Temp = styled.span`
     }
 `;
 
+const TempTitle = styled.span`
+    padding: 0 0.5px;
+`;
+
 const HighTemp = styled.span`
     color: tomato;
     padding: 0 0.5px;
@@ -135,6 +199,19 @@ const RowTemp = styled.span`
     padding: 0 0.5px;
 `;
 
+const RainTemp = styled.span`
+    padding: 1em 0;
+    padding-left: 15px;
+`;
+
+const TempText = styled.span`
+    padding: 0 10px;
+`;
+
+const TempText2 = styled.span`
+    padding: 0 10px 0 0;
+`;
+
 const NewsBox = styled.div`
     width: 95%;
     border: thin solid silver;
@@ -142,5 +219,20 @@ const NewsBox = styled.div`
     margin: 0 0 1em;
     padding: 0 5px;
     display: block;
-    font-size: 15px;
+    font-size: 18px;
+`;
+
+const ListAllDay = styled.li <{ name: string, cColor: Array<calendarColor> }>`
+    line-height: 1.5;
+    padding: 0.5em 0.5em 0.3em 0.5em;
+    list-style-type: none!important;
+    border-left: solid 6px ${({ name, cColor }) => `${colorJudge(name, cColor)}`};
+`;
+
+const ListNotAllDay = styled.li <{ name: string, cColor: Array<calendarColor> }>`
+    line-height: 1.5;
+    padding: 0.5em 0.5em 0.3em 0.5em;
+    list-style-type: none!important;
+    border-radius:5px
+    background: ${({ name, cColor }) => `${colorJudge(name, cColor)}`};
 `;

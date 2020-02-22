@@ -15,7 +15,8 @@ interface Props {
 }
 
 function getAllDay(start: string, end: string) {
-    if (start === end) {
+    if (start === end)
+    {
         return 'allDay';
     }
     return moment(start).format('YYYY-MM-DD');
