@@ -4,9 +4,13 @@ import styled, { css } from 'styled-components';
 import moment from 'moment';
 import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 
+interface sortCalendar extends CalendarEvent {
+    index: number,
+}
+
 interface Props {
     date: string,
-    schedules: Array<CalendarEvent>,
+    schedules: Array<sortCalendar>,
     cColor: Array<calendarColor>,
 }
 
@@ -27,17 +31,16 @@ export function Day(props: Props): JSX.Element {
     const day = moment(date).format('D');
     const divisionAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) !== 'allDay'));
     const divisionNotAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) === 'allDay'));
-    console.log(divisionAll);
     const A = (
         <Root>
             <div>
                 <P1 weekday={Number(weekday)}>{day}</P1>
                 <Grid rows={schedules.length}>
                     {divisionAll.map((s: any, index: any) => (
-                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
+                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
                     ))}
                     {divisionNotAll.map((s: any, index: any) => (
-                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor}>{s.title}</List>
+                        <List key={index} checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
                     ))}
                 </Grid>
             </div>
@@ -66,7 +69,7 @@ const P1 = styled.p<{ weekday: number }>`
         return tmpColor;
     }}}
 `;
-const List = styled.div<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor> }>`
+const List = styled.div<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor>, cols: number }>`
     margin-bottom: 3px;
     line-height: 1.5;
     padding: 0.5em;
@@ -87,7 +90,8 @@ const List = styled.div<{ checkDay: string, date: string, name: string, cColor: 
         border-radius:0 5px 5px 0;
     `)} 
     color: #4f5254;
-
+    grid-row-start: ${({ cols }) => `${cols + 1}`};
+    grid-row-end: ${({ cols }) => `${cols + 2}`};
 `;
 
 const Grid = styled.div<{ rows: number }>`

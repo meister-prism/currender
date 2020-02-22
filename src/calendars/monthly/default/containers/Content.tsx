@@ -68,11 +68,39 @@ class Content extends React.Component<IStateToProps, {}> {
         const calendarData = DayList.map((value) => {
             const schedules = Calendar[value] !== undefined ? Calendar[value] : [];
             schedules.sort((a, b) => (a.startSchedule >= b.startSchedule ? 1 : -1));
+            const T = schedules.map((S, index) => ({
+                ...S,
+                index,
+            }));
             return {
                 date: value,
-                schedules,
+                schedules: T,
             };
         });
+        let id = 0;
+        for (let i = 1; i < calendarData.length; i += 1) {
+            if (calendarData[i].schedules !== []) {
+                id = 0;
+                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
+                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) === moment(calendarData[i].schedules[j].endSchedule).format(('YYYY-MM-DD'))) {
+                        calendarData[i].schedules[j].index = j + 100;
+                    } else {
+                        calendarData[i].schedules[j].index = j;
+                    }
+                }
+                calendarData[i].schedules.sort((a, b) => (a.index > b.index ? 1 : -1));
+                console.log(calendarData);
+                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
+                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) !== calendarData[i].date) {
+                        const indexSearch = calendarData[i - 1].schedules.findIndex((element) => element.title === calendarData[i].schedules[j].title);
+                        calendarData[i].schedules[j].index = indexSearch;
+                        id = indexSearch;
+                    } else {
+                        calendarData[i].schedules[j].index = id + j;
+                    }
+                }
+            }
+        }
         return (
             <ContentComponent
                 calendar={calendarData}

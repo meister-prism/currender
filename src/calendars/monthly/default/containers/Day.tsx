@@ -15,10 +15,14 @@ type IProps = IStateToProps;
 
 function Day(props: IProps) {
     const { Date, schedules, cColor } = props;
+    const T = schedules.map((S, index) => ({
+        ...S,
+        index,
+    }));
     return (
         <DayComponent
             date={Date}
-            schedules={schedules}
+            schedules={T}
             cColor={cColor}
         />
     );

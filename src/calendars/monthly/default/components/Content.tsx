@@ -5,9 +5,13 @@ import moment from 'moment';
 import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
 
+interface sortCalendar extends CalendarEvent {
+    index: number,
+}
+
 interface tmpCal {
     date: string,
-    schedules: Array<CalendarEvent>,
+    schedules: Array<sortCalendar>,
 }
 
 interface Props {
