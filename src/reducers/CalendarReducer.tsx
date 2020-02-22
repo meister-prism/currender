@@ -91,8 +91,7 @@ export const CalendarReducer: Reducer<ICalendarState, CalendarAction> = (
     state: ICalendarState = initState,
     action: CalendarAction,
 ): ICalendarState => {
-    switch (action.type)
-    {
+    switch (action.type) {
         case CalendarType.CREATE_EVENT: {
             // イベントを追加する
             return { ...state };
