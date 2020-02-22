@@ -100,6 +100,7 @@ const DayText = styled.p`
     margin: 0px;
 `;
 
+/* これがモーダル自体のスタイル．多分中央寄せ・大きさは子要素に合わせるになってる */
 const ModalStyle = {
     content: {
         top: '50%',
@@ -111,11 +112,11 @@ const ModalStyle = {
     },
 };
 
-const ModalComponent = (day: string, events: Array<CalendarEvent>): JSX.Element => {
-    return (
-        <table>
-            <li>{day}</li>
-            {events.map((event) => <li>{event.title}</li>)}
-        </table>
-    );
-};
+/* これがモーダルの中身のJSX */
+const ModalComponent = (day: string, events: Array<CalendarEvent>): JSX.Element => (
+    <table>
+        <li>{day}</li>
+        {events.map((event) => <li>{event.title}</li>)}
+    </table>
+);
+/* モーダルのcssはここから下でお願いします */
