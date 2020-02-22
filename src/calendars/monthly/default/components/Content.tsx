@@ -1,10 +1,10 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Modal from 'react-modal';
 import moment from 'moment';
-import { CalendarEvent } from '../../../../reducers/CalendarReducer';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
 import { Day as DayComponent } from './Day';
 
 Modal.setAppElement('#root');
@@ -24,6 +24,11 @@ interface Props {
     toggleModal: any,
     modalIndex: number,
     cColor: Array<calendarColor>,
+}
+
+function colorJudge(name: string, cColor: Array<calendarColor>) {
+    const found = cColor.findIndex((element) => (element.name === name));
+    return cColor[found].color;
 }
 
 export function Content(props: Props): JSX.Element {
@@ -46,8 +51,11 @@ export function Content(props: Props): JSX.Element {
                 onRequestClose={() => toggleModal(0)}
                 style={ModalStyle}
             >
-                <h1>Test Modal</h1>
-                {ModalComponent(calendar[modalIndex].date, calendar[modalIndex].schedules)}
+                <h1>
+                    {String(moment(calendar[modalIndex].date).format('M/D'))}
+                    の予定
+                </h1>
+                {ModalComponent(calendar[modalIndex].date, calendar[modalIndex].schedules, cColor)}
             </Modal>
             <Grid rows={rows}>
                 {days.map((value, index) => (
@@ -120,10 +128,37 @@ const ModalStyle = {
 };
 
 /* これがモーダルの中身のJSX */
-const ModalComponent = (day: string, events: Array<CalendarEvent>): JSX.Element => (
+const ModalComponent = (day: string, events: Array<CalendarEvent>, cColor: Array<calendarColor>): JSX.Element => (
     <table>
-        <li>{day}</li>
-        {events.map((event) => <li>{event.title}</li>)}
+        {events.map((event) => (
+            <div>
+                <Title event={event} Color={cColor}>{event.title}</Title>
+                <Name>{event.calendarName}</Name>
+            </div>
+        ))}
     </table>
 );
 /* モーダルのcssはここから下でお願いします */
+
+const Title = styled.li<{ event: CalendarEvent, Color: Array<calendarColor> }>`
+    list-style-type: none!important;
+    font-size: 1.5em;
+    padding: 0.3em;
+    line-height; 1.5;
+    vertical-align:middle
+    ${({ event, Color }) => (event.endSchedule.isSame(event.startSchedule) ? css`
+        border-left: solid 6px ${colorJudge(event.calendarName, Color)};
+        &:after {
+            content: ' 終日';
+            font-size: 1em;
+            padding: 0.3em;
+        }
+    ` : css`
+        border-left: solid 6px ${colorJudge(event.calendarName, Color)};
+    `)}
+`;
+
+const Name = styled.div`
+    list-style-type: none!important;
+    padding: 0 0 0.5em 1em;
+`;

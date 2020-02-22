@@ -57,6 +57,10 @@ const Root = styled.div`
     margin: auto;
     height: 300px;
     width: 150px;
+    &:hover {
+        background-color: #c2c2c2;
+        cursor: pointer;
+    }
 `;
 const P1 = styled.p<{ weekday: number }>`
     font-size: 2.5rem;
@@ -70,9 +74,8 @@ const P1 = styled.p<{ weekday: number }>`
     }}}
 `;
 const List = styled.div<{ checkDay: string, date: string, name: string, cColor: Array<calendarColor>, cols: number }>`
-    margin-bottom: 3px;
     line-height: 1.5;
-    padding: 0.5em;
+    padding: 0.5em 0.5em 0.3em 0.5em;
     list-style-type: none!important;
     ${({ checkDay, name, cColor }) => (checkDay === 'allDay' ? css`
         border-left: solid 6px ${colorJudge(name, cColor)};
