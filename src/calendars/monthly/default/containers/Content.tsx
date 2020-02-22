@@ -16,6 +16,11 @@ interface IStateToProps {
     cColor: Array<calendarColor>,
 }
 
+interface IState {
+    isModalOpen: boolean,
+    currentModal: number,
+}
+
 /* functions */
 /* 多分別ファイルでも使うのでそのうち別ファイルに格納する */
 const generateDayList = (now: moment.Moment): Array<string> => {
@@ -57,11 +62,36 @@ const generateDayList = (now: moment.Moment): Array<string> => {
     return DayList;
 };
 
-class Content extends React.Component<IStateToProps, {}> {
+class Content extends React.Component<IStateToProps, IState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            isModalOpen: false,
+            currentModal: 0,
+        };
+        this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    toggleModal(index: number) {
+        const { isModalOpen, ...other } = this.state;
+        if (isModalOpen) {
+            this.setState({
+                isModalOpen: !isModalOpen,
+                ...other,
+            });
+        } else {
+            this.setState({
+                isModalOpen: !isModalOpen,
+                currentModal: index,
+            });
+        }
+    }
+
     render() {
         const {
             nowMonth, nowYear, Calendar, cColor,
         } = this.props;
+        const { isModalOpen, currentModal } = this.state;
         const strMonth = `0${nowMonth}`.slice(-2);
         const tmpMoment = moment(`${nowYear}-${strMonth}-01`);
         const DayList = generateDayList(tmpMoment);
@@ -104,6 +134,9 @@ class Content extends React.Component<IStateToProps, {}> {
         return (
             <ContentComponent
                 calendar={calendarData}
+                isOpen={isModalOpen}
+                toggleModal={this.toggleModal}
+                modalIndex={currentModal}
                 cColor={cColor}
             />
         );
