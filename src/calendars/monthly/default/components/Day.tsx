@@ -67,6 +67,7 @@ const List = styled.li<{ checkDay: string, date: string, name: string, cColor: A
         border-left: solid 6px ${colorJudge(name, cColor)};
     ` : css`
         background: ${colorJudge(name, cColor)};
+        border-radius:5px;
     `)}
     ${({ checkDay, date }) => (checkDay === date || checkDay === 'allDay' ? css`
         margin: 0 0 3px 10px;
@@ -76,7 +77,6 @@ const List = styled.li<{ checkDay: string, date: string, name: string, cColor: A
         white-space:nowrap;
         overflow:hidden;
     `)} 
-    
     color: #4f5254;
 
 `;
