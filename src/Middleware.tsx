@@ -104,8 +104,8 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
                 title: payload.title,
                 description: payload.description,
                 temperature: {
-                    max: 1000,
-                    min: 1000,
+                    max: payload.maxTemperature,
+                    min: payload.minTemperature,
                 },
                 chanceOfRain: payload.chanceOfRains,
                 rainfallProbability: rate,
