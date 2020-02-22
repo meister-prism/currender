@@ -22,7 +22,12 @@ interface Props {
 }
 
 export function Content(props: Props): JSX.Element {
-    const { calendar, isOpen, toggleModal, modalIndex } = props;
+    const {
+        calendar,
+        isOpen,
+        toggleModal,
+        modalIndex,
+    } = props;
 
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const rows = calendar.length > 35 ? 6 : 5;
@@ -37,7 +42,7 @@ export function Content(props: Props): JSX.Element {
                 style={ModalStyle}
             >
                 <h1>Test Modal</h1>
-                <h2>{modalIndex}</h2>
+                {ModalComponent(calendar[modalIndex].date, calendar[modalIndex].schedules)}
             </Modal>
             <Grid rows={rows}>
                 {days.map((value, index) => (
@@ -105,4 +110,13 @@ const ModalStyle = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
     },
+};
+
+const ModalComponent = (day: string, events: Array<CalendarEvent>): JSX.Element => {
+    return (
+        <table>
+            <li>{day}</li>
+            {events.map((event) => <li>{event.title}</li>)}
+        </table>
+    );
 };
