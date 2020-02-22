@@ -1,16 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import logo from '../../../../assets/sun.png';
+import { IWeather, ITraffic, IFortune } from '../../../../reducers/CurrentReducer';
 
 interface Props {
     Month: string,
     MonthName: string,
+    Weather: IWeather,
+    Traffic: ITraffic,
+    Fortune: IFortune,
 }
-
-/* styled-component の使い方
-    基本タグを選んで（ex: 下はdiv）cssを付け足す
-    function内で変数宣言すると，propsを使ったスタイリングができるけど...？
-*/
 
 const Bar = styled.div`
     width: 100%
@@ -21,6 +20,7 @@ const Bar = styled.div`
 
 const Root = styled.div`
     width: 100%
+    height: 25%
     margin: 0 auto
     text-align: left
 `;
@@ -45,9 +45,18 @@ const NewsBox = styled.span`
     padding: 0 5px
 `;
 
+const NewsText = styled.span`
+    margin-left: 10px
+`;
+
 const Temp = styled.span`
     font-size: 30px
     padding: 5px 0
+`;
+
+const TempText = styled.span`
+    font-size: 12px
+    padding-left: 15px
 `;
 
 const HighTemp = styled.span`
@@ -69,7 +78,13 @@ const News = styled.span`
 
 
 export function Title(props: Props): JSX.Element {
-    const { Month, MonthName } = props;
+    const {
+        Month,
+        MonthName,
+        Weather,
+        Traffic,
+        Fortune,
+    } = props;
     return (
         <Root>
             <Bar />
@@ -80,17 +95,30 @@ export function Title(props: Props): JSX.Element {
             <News>
                 <img src={String(logo)} alt="weather" style={{ width: '70px' }} />
                 <Temp>
-                    <HighTemp>20</HighTemp>
+                    <HighTemp>{Weather.temperature.max}</HighTemp>
                     /
-                    <RowTemp>15</RowTemp>
+                    <RowTemp>{Weather.temperature.min}</RowTemp>
                     ℃
+                    <TempText>降水確率</TempText>
+                    {Weather.rainfallProbability}
+                    %
                 </Temp>
                 <p>今日はCO2の日です．息を吸いましょう．</p>
+                {/* 遅延情報がない時 Traffic[0] == undefined なので応急処置しました */}
+                {(Traffic !== undefined) ? (
+                    <NewsBox>
+                        <span>【遅延情報】</span>
+                        <span>{Traffic.line}</span>
+                        <br />
+                        <NewsText>{Traffic.serviceStatus}</NewsText>
+                        <NewsText>{Traffic.description}</NewsText>
+                    </NewsBox>
+                ) : null}
                 <NewsBox>
-                    <p>遅延情報</p>
-                </NewsBox>
-                <NewsBox>
-                    <p>ニュース</p>
+                    <span>【占い】</span>
+                    <span>{Fortune.constellation}</span>
+                    <br />
+                    <NewsText>{Fortune.message}</NewsText>
                 </NewsBox>
             </News>
         </Root>
