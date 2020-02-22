@@ -1,6 +1,6 @@
 import * as React from 'react';
+import axios from 'axios';
 import { Memo as MemoComponent } from '../components/Memo';
-
 
 interface State {
     drawing: boolean
@@ -27,6 +27,26 @@ class Canvas extends React.Component<{}, State> {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
     }
+
+    static getNotes = async () => {
+        try {
+            return await axios.get('https://api.github.com/');
+            // eslint-disable-next-line no-console
+        } catch (error) {
+            return [];
+        }
+    };
+
+    static postNote = async (note: string) => {
+        try {
+            const result = await axios.post(`${'https://api.github.com/users'}/${note}`);
+            // eslint-disable-next-line no-console
+            console.log(result);
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+        }
+    };
 
     constructor(props: any) {
         super(props);
@@ -66,6 +86,8 @@ class Canvas extends React.Component<{}, State> {
                 onMouseMove={(e) => this.draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
                 saveCanvas={Canvas.saveCanvas}
                 clearCanvas={Canvas.clearCanvas}
+                postNote={() => Canvas.postNote}
+                // getNotes={Canvas.getNotes}
             />
         );
     }

@@ -4,6 +4,7 @@ import stackmemo from '../notes/memo1.jpg';
 import clear from '../assets/clear.png';
 import save from '../assets/save.png';
 
+
 interface Props {
     onMouseDown: (e: any) => void;
     onMouseUp: VoidFunction;
@@ -11,6 +12,8 @@ interface Props {
     onMouseMove: (e: any) => void;
     saveCanvas: VoidFunction;
     clearCanvas: VoidFunction;
+    // getNotes: Array<string>;
+    postNote: VoidFunction;
 }
 
 const Root = styled.div`
@@ -62,9 +65,14 @@ export function Memo(props: Props): JSX.Element {
         onMouseMove,
         saveCanvas,
         clearCanvas,
+        // getNotes,
+        postNote,
     } = props;
     return (
         <Root>
+            {/* <input onClick={getNotes} type="image" src={clear} name="getButton" alt="取得" /> */}
+            <input onClick={() => postNote('asdfg')} type="submit" src={clear} name="postButton" alt="保存" />
+
             <StackNotes>
                 {UrlList.map((url) => <NoteImg src={url} alt="" />)}
                 <NoteImg src={stackmemo} alt="" />
