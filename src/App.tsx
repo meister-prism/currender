@@ -50,7 +50,7 @@ class App extends React.Component<IProps, IState> {
             <Root>
                 <input onClick={this.changeFlag} value="日めくり" name="" type="button" />
                 {CurrenderTypeFlag && <MonthlyCalendar /> }
-                {/* <TestHimekuri title="04" /> */}
+                {/* <TestHimekuri title="04" /> */ }
             </Root>
         );
     }
