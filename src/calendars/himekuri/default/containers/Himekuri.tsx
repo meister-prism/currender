@@ -5,41 +5,52 @@ import { RootState } from '../../../../reducers';
 import {
     IWeather, ITraffic, IFortune, IWIT,
 } from '../../../../reducers/CurrentReducer';
-import { Title as TitleComponent } from '../components/Title';
+import { CalendarEvent, calendarColor } from '../../../../reducers/CalendarReducer';
+import { Himekuri as HimekuriComponent } from '../components/Himekuri';
 
+interface calendarTmp {
+    [key: string]: Array<CalendarEvent>,
+}
 
 interface IStateToProps {
-    Date: string,
+    date: string,
     Weather: IWeather,
     Traffic: Array<ITraffic>,
     Fortunes: Array<IFortune>,
     WhatIsToday: IWIT,
+    Calendar: calendarTmp,
+    cColor: Array<calendarColor>,
 }
 
 type IProps = IStateToProps;
 
-class Title extends React.Component<IProps, {}> {
+class Himekuri extends React.Component<IProps, {}> {
     componentDidMount() {
         const a = 1;
     }
 
     render() {
         const {
-            Date,
+            date,
             Weather,
             Traffic,
             Fortunes,
+            cColor,
+            Calendar,
             WhatIsToday,
         } = this.props;
-        const Moment: moment.Moment = moment(Date);
+        const Moment: moment.Moment = moment(date);
+        const schedules = Calendar[date] !== undefined ? Calendar[date] : [];
+        schedules.sort((a, b) => (a.startSchedule >= b.startSchedule ? 1 : -1));
         return (
-            <TitleComponent
-                Month={Moment.format('M')}
-                MonthName={Moment.format('MMMM')}
+            <HimekuriComponent
+                Date={date}
                 Weather={Weather}
                 Traffic={Traffic[0]}
                 Fortune={Fortunes[0]}
                 WhatIsToday={WhatIsToday}
+                cColor={cColor}
+                schedules={schedules}
             />
         );
     }
@@ -55,17 +66,30 @@ const mapStateToProps = (state: RootState): IStateToProps => {
             fortune,
             whatIsToday,
         },
+        CalendarState,
     } = state;
+    const cColor = [
+        {
+            name: 'Taiyo Minagawa',
+            color: '#b0dffb',
+        },
+        {
+            name: 'Ryo Tabata',
+            color: '#f09300',
+        },
+    ];
     return {
-        Date: nowDateTime.format('YYYY-MM-DD'),
+        date: nowDateTime.format('YYYY-MM-DD'),
         Weather: weather,
         Traffic: traffic,
         Fortunes: fortune,
         WhatIsToday: whatIsToday,
+        Calendar: CalendarState.schedules,
+        cColor,
     };
 };
 
 
 export default connect(
     mapStateToProps,
-)(Title);
+)(Himekuri);
