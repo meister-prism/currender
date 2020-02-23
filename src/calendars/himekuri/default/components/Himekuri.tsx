@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import logo from '../../../../assets/sun.png';
+import backgroundImage from '../../../../assets/background.jpg';
 import {
     IWeather, ITraffic, IFortune, IWIT,
 } from '../../../../reducers/CurrentReducer';
@@ -109,7 +110,7 @@ export function Himekuri(props: Props) {
 
 const Root = styled.div`
     width: 100%;
-    height: 65%;
+    height: 40%;
     background-color: tomato;
 `;
 
@@ -123,6 +124,7 @@ const Bar = styled.div`
 const FlexBox = styled.div`
     display: flex;
     background-color: #eee;
+    background-image: ${backgroundImage};
     height: 100%;
 `;
 
