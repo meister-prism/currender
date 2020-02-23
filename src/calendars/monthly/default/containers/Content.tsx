@@ -138,7 +138,6 @@ class Content extends React.Component<IStateToProps, IState> {
                         }
                     }
                 }
-                console.log(calendarData[i]);
             }
         }
         return (

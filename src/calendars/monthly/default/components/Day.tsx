@@ -31,7 +31,6 @@ export function Day(props: Props): JSX.Element {
     const day = moment(date).format('D');
     const divisionAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) !== 'allDay'));
     const divisionNotAll: any = schedules.filter((s) => (getAllDay(String(s.startSchedule), String(s.endSchedule)) === 'allDay'));
-    console.log(schedules);
     const A = (
         <Root>
             <div>

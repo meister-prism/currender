@@ -54,7 +54,6 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { connected, wit } = this.props;
         const { CurrenderTypeFlag } = this.state;
         return (
             <Root>

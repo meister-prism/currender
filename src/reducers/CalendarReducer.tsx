@@ -97,6 +97,7 @@ export const CalendarReducer: Reducer<ICalendarState, CalendarAction> = (
             const { startSchedule, endSchedule } = action.payload.event;
             const s = moment(startSchedule);
             const s2 = s.clone().startOf('days');
+            const s3 = s.clone();
             const e = moment(endSchedule);
             const e2 = e.clone().startOf('days');
             const days: Array<string> = [];
@@ -110,9 +111,10 @@ export const CalendarReducer: Reducer<ICalendarState, CalendarAction> = (
             Object.assign(newSchedule, state.schedules);
             const event: CalendarEvent = {
                 ...action.payload.event,
-                startSchedule: s,
+                startSchedule: s3,
                 endSchedule: e,
             };
+            console.log(event);
             days.forEach((value) => {
                 if (value in newSchedule) {
                     newSchedule[value].push(event);

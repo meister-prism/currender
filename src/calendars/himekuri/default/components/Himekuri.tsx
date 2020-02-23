@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import logo from '../../../../assets/sun.png';
 import {
     IWeather, ITraffic, IFortune, IWIT,
 } from '../../../../reducers/CurrentReducer';
