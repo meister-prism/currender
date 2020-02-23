@@ -39,7 +39,7 @@ class App extends React.Component<IProps, IState> {
         const timerId = setInterval(updateDatetime, 1000);
         const CurrenderTypeFlag = true;
         this.setState({ timerId, CurrenderTypeFlag });
-        createConnection('ws://agile-river-42294.herokuapp.com');
+        // createConnection('ws://agile-river-42294.herokuapp.com');
     }
 
     componentWillUnmount() {
