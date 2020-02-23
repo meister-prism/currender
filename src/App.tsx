@@ -40,7 +40,7 @@ class App extends React.Component<IProps, IState> {
         const { connected, wit } = this.props;
         return (
             <Root>
-                <Himekuri />
+                <MonthlyCalendar />
             </Root>
         );
     }

@@ -94,7 +94,33 @@ export const CalendarReducer: Reducer<ICalendarState, CalendarAction> = (
     switch (action.type) {
         case CalendarType.CREATE_EVENT: {
             // イベントを追加する
-            return { ...state };
+            const { startSchedule, endSchedule } = action.payload.event;
+            const s = moment(startSchedule);
+            const s2 = s.clone().startOf('days');
+            const e = moment(endSchedule);
+            const e2 = e.clone().startOf('days');
+            const days: Array<string> = [];
+            for (let i = 0; i < e2.diff(s2, 'days'); i += 1) {
+                days.push(s.format('YYYY-MM-DD'));
+                s.add(1, 'days');
+            }
+            days.push(s.format('YYYY-MM-DD'));
+            // state のディープコピー
+            const newSchedule: { [key: string]: Array<CalendarEvent> } = {};
+            Object.assign(newSchedule, state.schedules);
+            const event: CalendarEvent = {
+                ...action.payload.event,
+                startSchedule: s,
+                endSchedule: e,
+            };
+            days.forEach((value) => {
+                if (value in newSchedule) {
+                    newSchedule[value].push(event);
+                } else {
+                    newSchedule[value] = [event];
+                }
+            });
+            return { schedules: newSchedule };
         }
         default: {
             return state;

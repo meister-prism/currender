@@ -35,7 +35,7 @@ export function Day(props: Props): JSX.Element {
         <Root>
             <div>
                 <P1 weekday={Number(weekday)}>{day}</P1>
-                <Grid rows={schedules.length}>
+                <Grid rows={5}>
                     {divisionAll.map((s: any) => (
                         <List checkDay={getAllDay(String(s.startSchedule), String(s.endSchedule))} date={String(date)} name={s.calendarName} cColor={cColor} cols={s.index}>{s.title}</List>
                     ))}
@@ -99,6 +99,7 @@ const List = styled.div<{ checkDay: string, date: string, name: string, cColor: 
 
 const Grid = styled.div<{ rows: number }>`
     display: grid;
+    grid-auto-flow: column;
     width: 100%;
-    grid-template-rows: ${({ rows }) => `40px repeat(${rows}, 1fr)`};
+    grid-template-column: ${({ rows }) => `repeat(${rows}, 1fr)`};
 `;

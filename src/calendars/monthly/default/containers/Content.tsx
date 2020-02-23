@@ -110,22 +110,16 @@ class Content extends React.Component<IStateToProps, IState> {
         let id = 0;
         for (let i = 1; i < calendarData.length; i += 1) {
             if (calendarData[i].schedules !== []) {
-                id = 0;
-                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
-                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) === moment(calendarData[i].schedules[j].endSchedule).format(('YYYY-MM-DD'))) {
-                        calendarData[i].schedules[j].index = j + 100;
-                    } else {
-                        calendarData[i].schedules[j].index = j;
+                const len = calendarData[i].schedules.length;
+                for (let j = 0; j < len; j += 1) {
+                    id = calendarData[i].schedules[j].index;
+                    for (let p = 0; p < calendarData[i - 1].schedules.length; p += 1) {
+                        if (calendarData[i].schedules[j].title === calendarData[i - 1].schedules[p].title) {
+                            calendarData[i].schedules[j].index = calendarData[i - 1].schedules[p].index;
+                        }
                     }
-                }
-                calendarData[i].schedules.sort((a, b) => (a.index > b.index ? 1 : -1));
-                for (let j = 0; j < calendarData[i].schedules.length; j += 1) {
-                    if (moment(calendarData[i].schedules[j].startSchedule).format(('YYYY-MM-DD')) !== calendarData[i].date) {
-                        const indexSearch = calendarData[i - 1].schedules.findIndex((element) => element.title === calendarData[i].schedules[j].title);
-                        calendarData[i].schedules[j].index = indexSearch;
-                        id = indexSearch;
-                    } else {
-                        calendarData[i].schedules[j].index = id + j;
+                    if (calendarData[i].schedules[j].index === id) {
+                        calendarData[i].schedules[j].index = calendarData[i].schedules[j - 1].index;
                     }
                 }
             }

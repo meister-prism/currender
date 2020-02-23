@@ -3,6 +3,7 @@ import moment from 'moment';
 import { webSocketActionCreator } from './actions/WebSocketAction';
 import { currentActionCreator } from './actions/CurrentAction';
 import { IFortune, ITraffic, IWeather } from './reducers/CurrentReducer';
+import { calendarActionCreator } from './actions/CalendarAction';
 
 export enum WebSocketType {
     CONNECT = 'WEBSOCKET:CONNECT',
@@ -104,8 +105,8 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
                 title: payload.title,
                 description: payload.description,
                 temperature: {
-                    max: payload.maxTemperature,
-                    min: payload.minTemperature,
+                    max: payload.maxTempareture,
+                    min: payload.minTemparature,
                 },
                 chanceOfRain: payload.chanceOfRains,
                 rainfallProbability: rate,
@@ -116,6 +117,10 @@ const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
         case 'almanac': {
             const { date, ...other } = payload;
             dispatch(currentActionCreator.updateAlmanac(other));
+            break;
+        }
+        case 'add_schedule': {
+            dispatch(calendarActionCreator.create(payload));
             break;
         }
         default: {
