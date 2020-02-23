@@ -25,9 +25,6 @@ interface IStateToProps {
 type IProps = IStateToProps;
 
 class Himekuri extends React.Component<IProps, {}> {
-    componentDidMount() {
-        const a = 1;
-    }
 
     render() {
         const {

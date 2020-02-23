@@ -105,7 +105,6 @@ export function Title(props: Props): JSX.Element {
                     ℃
                     <TempText>降水確率</TempText>
                     {Weather.rainfallProbability}
-                    %
                 </Temp>
                 <p>{WhatIsToday.title}</p>
                 {/* 遅延情報がない時 Traffic[0] == undefined なので応急処置しました */}
