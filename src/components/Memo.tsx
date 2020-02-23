@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import stackmemo from '../notes/sample.jpg';
+import stackmemo2 from '../notes/sample2.jpg';
 import clear from '../assets/clear.png';
 import save from '../assets/save.png';
 
@@ -28,6 +29,7 @@ const ClearButton = styled.input`
 
 const StackNotes = styled.div`
     text-align: left
+    margin-top: 50px
 `;
 
 const NoteImg = styled.img`
@@ -37,6 +39,12 @@ const NoteImg = styled.img`
     margin-right: 20px
     background-color: #FFF5C2
     box-shadow: 2px 5px rgba(0,0,0,0.3)
+`;
+
+const SaveButton = styled.a`
+    margin-right: 5px
+    width: 40px
+    height: 40px
 `;
 
 const NoteStyle = {
@@ -49,7 +57,6 @@ const canvasStyle = {
     backgroundColor: '#FFF5C2',
 };
 
-const UrlList = ['../notes/memo1.jpg', '../notes/memo1.jpg'];
 
 export function Memo(props: Props): JSX.Element {
     const {
@@ -66,13 +73,15 @@ export function Memo(props: Props): JSX.Element {
         <Root>
             {/* <input onClick={getNotes} type="image" src={clear} name="getButton" alt="取得" /> */}
             <StackNotes>
-                {UrlList.map((url) => <NoteImg src={url} alt="" />)}
                 <NoteImg src={stackmemo} alt="" />
-                <NoteImg src={stackmemo} style={NoteStyle} alt="" />
+                <NoteImg src={stackmemo2} style={NoteStyle} alt="" />
             </StackNotes>
             <br />
             <div>
-                <ClearButton onClick={postNote} type="image" src={save} name="saveButton" alt="保存" />
+                {/* <ClearButton onClick={saveCanvas} type="image" src={save} name="saveButton" alt="保存" /> */}
+                <SaveButton onClick={saveCanvas} id="download" download="sample.jpg">
+                    <img width="40px" src={save} alt="保存" />
+                </SaveButton>
                 <ClearButton onClick={clearCanvas} type="image" src={clear} name="clearButton" alt="取り消し" />
             </div>
             <canvas
