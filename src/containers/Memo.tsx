@@ -21,7 +21,7 @@ class Canvas extends React.Component<{}, State> {
     }
 
     static getNotes = async () => {
-        axios.get('/api/sample/')
+        const r = await axios.get('https://agile-river-42294.herokuapp.com/handwrittenImg/all')
             .then((res) => {
                 console.log(res);
                 return res;
@@ -30,7 +30,8 @@ class Canvas extends React.Component<{}, State> {
                 console.log(error);
                 return [];
             });
-    };
+        return r;
+    }
 
     static postNote() {
         const canvas: any = document.getElementById('canvas');
@@ -97,7 +98,7 @@ class Canvas extends React.Component<{}, State> {
                 saveCanvas={Canvas.saveCanvas}
                 clearCanvas={Canvas.clearCanvas}
                 postNote={Canvas.postNote}
-                // getNotes={Canvas.getNotes}
+                getNotes={Canvas.getNotes}
             />
         );
     }

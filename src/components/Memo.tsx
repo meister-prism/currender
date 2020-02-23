@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { AxiosResponse } from 'axios';
 import stackmemo from '../notes/sample.jpg';
 import stackmemo2 from '../notes/sample2.jpg';
 import clear from '../assets/clear.png';
@@ -13,7 +14,7 @@ interface Props {
     onMouseMove: (e: any) => void;
     saveCanvas: VoidFunction;
     clearCanvas: VoidFunction;
-    // getNotes: Array<string>;
+    getNotes: () => Promise<AxiosResponse<any> | never[]>;
     postNote: VoidFunction;
 }
 
@@ -66,22 +67,23 @@ export function Memo(props: Props): JSX.Element {
         onMouseMove,
         saveCanvas,
         clearCanvas,
-        // getNotes,
+        getNotes,
         postNote,
     } = props;
+
     return (
         <Root>
-            {/* <input onClick={getNotes} type="image" src={clear} name="getButton" alt="取得" /> */}
             <StackNotes>
+                {/* {[].map((note) => <NoteImg src={`data:image/jpeg;base64,${note}`} alt="" />)} */}
                 <NoteImg src={stackmemo} alt="" />
                 <NoteImg src={stackmemo2} style={NoteStyle} alt="" />
             </StackNotes>
             <br />
             <div>
-                {/* <ClearButton onClick={saveCanvas} type="image" src={save} name="saveButton" alt="保存" /> */}
-                <SaveButton onClick={saveCanvas} id="download" download="sample.jpg">
+                <ClearButton onClick={postNote} type="image" src={save} name="saveButton" alt="保存" />
+                {/* <SaveButton onClick={saveCanvas} id="download" download="sample.jpg">
                     <img width="40px" src={save} alt="保存" />
-                </SaveButton>
+                </SaveButton> */}
                 <ClearButton onClick={clearCanvas} type="image" src={clear} name="clearButton" alt="取り消し" />
             </div>
             <canvas
