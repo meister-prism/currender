@@ -66,6 +66,7 @@ export const Middleware = ({ dispatch }: { dispatch: Dispatch }) => (next: any) 
 
 // WebSocketの受信を振り分ける関数
 const websocketReceiver = (event: MessageEvent, dispatch: Dispatch) => {
+    console.log(event);
     const receveData = JSON.parse(event.data);
     const { payload } = receveData;
     console.log(receveData.EventName);
