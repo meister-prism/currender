@@ -95,8 +95,7 @@ export function Memo(props: Props): JSX.Element {
                 onMouseLeave={onMouseLeave}
                 onMouseMove={onMouseMove}
                 onTouchStart={onMouseDown}
-                onTouchEnd={onMouseUp}
-                onTouchCancel={onMouseLeave}
+                onTouchEnd={onMouseLeave}
                 onTouchMove={onMouseMove}
                 style={canvasStyle}
             />
