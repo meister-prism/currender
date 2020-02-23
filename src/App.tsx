@@ -8,11 +8,11 @@ import { TestHimekuri } from './calendars/himekuri/default/components/himekuri';
 import { currentActionCreator } from './actions/CurrentAction';
 import { IWIT } from './reducers/CurrentReducer';
 import MonthlyCalendar from './calendars/monthly/default';
+import save from './assets/sun.png';
 
 interface IStateToProps {
     connected: boolean;
     wit: IWIT;
-    CurrenderTypeFlag: boolean;
 }
 
 interface IDispatchToProps {
@@ -24,6 +24,15 @@ type IProps = IStateToProps & IDispatchToProps;
 type IState = { timerId: number, CurrenderTypeFlag: boolean }
 
 class App extends React.Component<IProps, IState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            CurrenderTypeFlag: true,
+            timerId: 0,
+        };
+        this.changeFlag = this.changeFlag.bind(this);
+    }
+
     componentDidMount() {
         const { createConnection, updateDatetime } = this.props;
         updateDatetime();
@@ -41,16 +50,20 @@ class App extends React.Component<IProps, IState> {
 
     changeFlag() {
         const { CurrenderTypeFlag } = this.state;
-        this.setState({ CurrenderTypeFlag });
+        this.setState({ CurrenderTypeFlag: !CurrenderTypeFlag });
     }
 
     render() {
-        const { connected, wit, CurrenderTypeFlag } = this.props;
+        const { connected, wit } = this.props;
+        const { CurrenderTypeFlag } = this.state;
         return (
             <Root>
-                <input onClick={this.changeFlag} value="日めくり" name="" type="button" />
+                <ChangeBar>
+                    {/* <input onClick={this.changeFlag} src={save} name="" type="button" /> */}
+                    <ChangeButton onClick={this.changeFlag} value="切り替え" name="" type="button" />
+                </ChangeBar>
                 {CurrenderTypeFlag && <MonthlyCalendar /> }
-                {/* <TestHimekuri title="04" /> */ }
+                {!CurrenderTypeFlag && <TestHimekuri title="04" /> }
             </Root>
         );
     }
@@ -61,7 +74,6 @@ const mapStateToProps = (state: RootState): IStateToProps => {
     return {
         connected: WebSocketState.connected,
         wit: CurrentState.whatIsToday,
-        CurrenderTypeFlag: true,
     };
 };
 
@@ -79,4 +91,15 @@ export default connect(
 const Root = styled.div`
     height: 100%;
     width: 100%;
+`;
+
+const ChangeBar = styled.div`
+    width: 100%
+    padding: 10px
+    text-align: right
+`;
+
+const ChangeButton = styled.input`
+    display: inline-block 
+    margin-right: 20px
 `;
