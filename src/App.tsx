@@ -63,7 +63,7 @@ class App extends React.Component<IProps, IState> {
                     <ChangeButton onClick={this.changeFlag} value="切り替え" name="" type="button" />
                 </ChangeBar>
                 {CurrenderTypeFlag && <MonthlyCalendar /> }
-                {!CurrenderTypeFlag && <TestHimekuri title="04" /> }
+                {!CurrenderTypeFlag && <Himekuri /> }
             </Root>
         );
     }
