@@ -109,19 +109,23 @@ class Content extends React.Component<IStateToProps, IState> {
         });
         let id = 0;
         for (let i = 1; i < calendarData.length; i += 1) {
-            if (calendarData[i].schedules !== []) {
+            if (calendarData[i].schedules.length !== 0) {
                 const len = calendarData[i].schedules.length;
                 for (let j = 0; j < len; j += 1) {
                     id = calendarData[i].schedules[j].index;
                     for (let p = 0; p < calendarData[i - 1].schedules.length; p += 1) {
                         if (calendarData[i].schedules[j].title === calendarData[i - 1].schedules[p].title) {
+                            console.log('a');
                             calendarData[i].schedules[j].index = calendarData[i - 1].schedules[p].index;
                         }
                     }
-                    if (calendarData[i].schedules[j].index === id) {
-                        calendarData[i].schedules[j].index = calendarData[i].schedules[j - 1].index;
+                    if (j !== 0) {
+                        if (calendarData[i].schedules[j].index === id) {
+                            calendarData[i].schedules[j].index = calendarData[i].schedules[j - 1].index + 1;
+                        }
                     }
                 }
+                console.log(calendarData[i]);
             }
         }
         return (
