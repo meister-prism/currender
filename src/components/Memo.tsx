@@ -21,12 +21,6 @@ const Root = styled.div`
     text-align: right
 `;
 
-const SaveButton = styled.a`
-    margin-right: 5px
-    width: 40px
-    height: 40px
-`;
-
 const ClearButton = styled.input`
     width: 40px
     height: 40px
@@ -71,8 +65,6 @@ export function Memo(props: Props): JSX.Element {
     return (
         <Root>
             {/* <input onClick={getNotes} type="image" src={clear} name="getButton" alt="取得" /> */}
-            <input onClick={() => postNote()} type="submit" src={clear} name="postButton" alt="保存" />
-
             <StackNotes>
                 {UrlList.map((url) => <NoteImg src={url} alt="" />)}
                 <NoteImg src={stackmemo} alt="" />
@@ -80,9 +72,7 @@ export function Memo(props: Props): JSX.Element {
             </StackNotes>
             <br />
             <div>
-                <SaveButton onClick={saveCanvas} id="download" download="sample.jpg">
-                    <img width="40px" src={save} alt="保存" />
-                </SaveButton>
+                <ClearButton onClick={postNote} type="image" src={save} name="saveButton" alt="保存" />
                 <ClearButton onClick={clearCanvas} type="image" src={clear} name="clearButton" alt="取り消し" />
             </div>
             <canvas

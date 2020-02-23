@@ -7,14 +7,6 @@ interface State {
 }
 
 class Canvas extends React.Component<{}, State> {
-    static saveCanvas() {
-        const canvas: any = document.getElementById('canvas');
-        const a: any = document.getElementById('download');
-        canvas.toBlob((blob: any) => {
-            a.href = window.URL.createObjectURL(blob);
-        });
-    }
-
     static getContext2D() {
         const canvas : any = document.getElementById('canvas');
         const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
@@ -29,24 +21,42 @@ class Canvas extends React.Component<{}, State> {
     }
 
     static getNotes = async () => {
-        try {
-            return await axios.get('https://api.github.com/');
-            // eslint-disable-next-line no-console
-        } catch (error) {
-            return [];
-        }
+        axios.get('/api/sample/')
+            .then((res) => {
+                console.log(res);
+                return res;
+            })
+            .catch((error) => {
+                console.log(error);
+                return [];
+            });
     };
 
-    static postNote = async (note: string) => {
-        try {
-            const result = await axios.post(`${'https://api.github.com/users'}/${note}`);
-            // eslint-disable-next-line no-console
-            console.log(result);
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.log(error);
+    static postNote() {
+        const canvas: any = document.getElementById('canvas');
+        const base64 = canvas.toDataURL('image/png');
+        const bin = atob(base64.replace(/^.*,/, ''));
+        const buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i += 1) {
+            buffer[i] = bin.charCodeAt(i);
         }
-    };
+        const data = { handwrittenImg: new TextDecoder('utf-8').decode(buffer) };
+        axios.post('https://agile-river-42294.herokuapp.com/handwrittenImg/add/', data)
+            .then((res) => {
+                console.log('ok', res);
+            })
+            .catch((error) => {
+                console.log('error', error, data);
+            });
+    }
+
+    static saveCanvas() {
+        const canvas: any = document.getElementById('canvas');
+        const a: any = document.getElementById('download');
+        canvas.toBlob((blob: any) => {
+            a.href = window.URL.createObjectURL(blob);
+        });
+    }
 
     constructor(props: any) {
         super(props);
@@ -86,7 +96,7 @@ class Canvas extends React.Component<{}, State> {
                 onMouseMove={(e) => this.draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
                 saveCanvas={Canvas.saveCanvas}
                 clearCanvas={Canvas.clearCanvas}
-                postNote={() => Canvas.postNote}
+                postNote={Canvas.postNote}
                 // getNotes={Canvas.getNotes}
             />
         );
