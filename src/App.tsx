@@ -8,7 +8,7 @@ import Himekuri from './calendars/himekuri/default/containers/Himekuri';
 import { currentActionCreator } from './actions/CurrentAction';
 import { IWIT } from './reducers/CurrentReducer';
 import MonthlyCalendar from './calendars/monthly/default';
-import save from './assets/sun.png';
+import Memo from './containers/Memo';
 
 interface IStateToProps {
     connected: boolean;
@@ -64,6 +64,7 @@ class App extends React.Component<IProps, IState> {
                 </ChangeBar>
                 {CurrenderTypeFlag && <MonthlyCalendar /> }
                 {!CurrenderTypeFlag && <Himekuri /> }
+                <Memo />
             </Root>
         );
     }
