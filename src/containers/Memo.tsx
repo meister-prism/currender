@@ -64,6 +64,8 @@ class Canvas extends React.Component<{}, State> {
         this.state = {
             drawing: false,
         };
+        this.startDrawing = this.startDrawing.bind(this);
+        this.draw = this.draw.bind(this);
     }
 
     endDrawing() {
