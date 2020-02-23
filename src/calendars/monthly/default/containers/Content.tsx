@@ -97,7 +97,21 @@ class Content extends React.Component<IStateToProps, IState> {
         const DayList = generateDayList(tmpMoment);
         const calendarData = DayList.map((value) => {
             const schedules = Calendar[value] !== undefined ? Calendar[value] : [];
-            schedules.sort((a, b) => (a.startSchedule >= b.startSchedule ? 1 : -1));
+            schedules.sort((a, b) => {
+                if (a.startSchedule === a.endSchedule) {
+                    if (b.startSchedule === b.endSchedule) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                } else {
+                    if (b.startSchedule === b.endSchedule) {
+                        return 1;
+                    } else {
+                        return a.startSchedule >= b.startSchedule ? 1 : -1;
+                    }
+                }
+            });
             const T = schedules.map((S, index) => ({
                 ...S,
                 index,
@@ -115,7 +129,6 @@ class Content extends React.Component<IStateToProps, IState> {
                     id = calendarData[i].schedules[j].index;
                     for (let p = 0; p < calendarData[i - 1].schedules.length; p += 1) {
                         if (calendarData[i].schedules[j].title === calendarData[i - 1].schedules[p].title) {
-                            console.log('a');
                             calendarData[i].schedules[j].index = calendarData[i - 1].schedules[p].index;
                         }
                     }

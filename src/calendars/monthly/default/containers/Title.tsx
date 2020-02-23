@@ -19,10 +19,6 @@ interface IStateToProps {
 type IProps = IStateToProps;
 
 class Title extends React.Component<IProps, {}> {
-    componentDidMount() {
-        const a = 1;
-    }
-
     render() {
         const {
             Date,
